@@ -1,0 +1,23 @@
+# FX Options Portfolio Monitor - Dependencies
+
+# GUI
+PyQt6>=6.4.0
+
+# Quantitative Finance
+QuantLib>=1.31
+
+# Bloomberg API
+blpapi>=3.19.0
+
+# Data handling
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Interpolation
+scipy>=1.10.0
+
+# Configuration
+PyYAML>=6.0
+
+# Date handling
+python-dateutil>=2.8.2

@@ -1,0 +1,68 @@
+# FX Options Portfolio Monitor - Configuration
+
+bloomberg:
+  host: "localhost"
+  port: 8194
+  timeout: 30000  # milliseconds
+
+data:
+  directory: "./data/"
+  options_file: "options_portfolio.csv"
+  forwards_file: "forwards_blotter.csv"
+
+fx_crosses:
+  - EURUSD
+  - GBPUSD
+  - USDJPY
+  - EURGBP
+  - EURCHF
+  - USDCAD
+  - AUDUSD
+  - AUDNZD
+
+# Forward points tenors for curve building
+forward_tenors:
+  - ON
+  - TN
+  - SN
+  - 1W
+  - 2W
+  - 3W
+  - 1M
+  - 2M
+  - 3M
+  - 4M
+  - 5M
+  - 6M
+  - 9M
+  - 1Y
+
+# Volatility surface tenors
+vol_tenors:
+  - 1W
+  - 2W
+  - 1M
+  - 2M
+  - 3M
+  - 6M
+  - 9M
+  - 1Y
+
+# Volatility pillars (delta based)
+vol_pillars:
+  - ATM
+  - 25RR
+  - 10RR
+  - 25BF
+  - 10BF
+
+# Display settings
+display:
+  decimal_places: 4
+  notional_format: "millions"  # millions or units
+  refresh_interval: 60  # seconds
+
+# Risk parameters
+risk:
+  gamma_bump_pct: 1.0  # 1% spot move for gamma calculation
+  vega_bump_bp: 100    # 1 vol point for vega
