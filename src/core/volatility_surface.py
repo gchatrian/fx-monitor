@@ -73,23 +73,26 @@ class VolatilitySmile:
         self.vol_10p = self.atm_vol + self.bf_10 - self.rr_10 / 2
 
         # Build delta-vol array for interpolation
-        # Deltas: 10p, 25p, ATM (50d), 25c, 10c
-        # Using premium-adjusted deltas convention
-        self.deltas = np.array([-0.10, -0.25, 0.50, 0.25, 0.10])
-        self.vols = np.array([
-            self.vol_10p,
-            self.vol_25p,
-            self.atm_vol,
-            self.vol_25c,
-            self.vol_10c
-        ])
+        # Use absolute delta convention: ATM at 0.50, wings at lower deltas
+        # This creates a symmetric smile around ATM
+        # Deltas: 0.10 (10d wing), 0.25 (25d), 0.50 (ATM)
+        # Put vols are on left side, call vols on right side
+        # We store both sides separately for interpolation
+        self.put_deltas = np.array([0.10, 0.25, 0.50])  # 10P, 25P, ATM
+        self.put_vols = np.array([self.vol_10p, self.vol_25p, self.atm_vol])
 
-        # Create cubic spline interpolator
-        # Sort by delta for interpolation
-        sort_idx = np.argsort(self.deltas)
-        self._interp = interpolate.CubicSpline(
-            self.deltas[sort_idx],
-            self.vols[sort_idx],
+        self.call_deltas = np.array([0.10, 0.25, 0.50])  # 10C, 25C, ATM
+        self.call_vols = np.array([self.vol_10c, self.vol_25c, self.atm_vol])
+
+        # Create separate interpolators for put and call sides
+        self._put_interp = interpolate.CubicSpline(
+            self.put_deltas,
+            self.put_vols,
+            bc_type='natural'
+        )
+        self._call_interp = interpolate.CubicSpline(
+            self.call_deltas,
+            self.call_vols,
             bc_type='natural'
         )
 
@@ -101,6 +104,13 @@ class VolatilitySmile:
         """
         Get interpolated volatility for a given delta.
 
+        The smile uses absolute delta convention:
+        - Put side: delta from -0.50 (ATM) to -0.10 (10d OTM put)
+        - Call side: delta from +0.50 (ATM) to +0.10 (10d OTM call)
+
+        We use the absolute value of delta and select the appropriate
+        interpolator (put or call) based on the sign.
+
         Args:
             delta: Option delta (-1 to 1, negative for puts)
 
@@ -109,32 +119,28 @@ class VolatilitySmile:
         """
         original_delta = delta
 
-        # Clamp delta to the range of the smile data
-        # Our smile has deltas: [-0.10, -0.25, 0.50, 0.25, 0.10]
-        # For puts (negative delta): clamp to [-0.10, 0] - use 10P for ITM puts
-        # For calls (positive delta): clamp to [0, 0.50] - use ATM for ITM calls
-        if delta < -0.10:
-            # ITM put - use 10 delta put vol (most OTM put we have)
-            delta = -0.10
-        elif delta > 0.50:
-            # ITM call - use ATM vol
-            delta = 0.50
+        # Convert to absolute delta for interpolation
+        abs_delta = abs(delta)
 
-        # Handle near-zero delta (deep OTM)
-        if abs(delta) < 0.05:
-            # Extrapolate using the wing
-            if delta >= 0:
-                delta = 0.10
-            else:
-                delta = -0.10
+        # Clamp to valid range [0.10, 0.50]
+        if abs_delta > 0.50:
+            abs_delta = 0.50  # ITM options use ATM vol
+        elif abs_delta < 0.10:
+            abs_delta = 0.10  # Deep OTM options use wing vol
 
-        result = float(self._interp(delta))
-        if abs(original_delta - delta) > 0.01:
-            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({original_delta:.4f}) clamped to {delta:.4f} = {result:.2f}% "
-                        f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
+        # Select interpolator based on put/call
+        if delta < 0:
+            # Put side
+            result = float(self._put_interp(abs_delta))
         else:
-            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({delta:.4f}) = {result:.2f}% "
-                        f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
+            # Call side (including delta=0, which defaults to ATM)
+            result = float(self._call_interp(abs_delta))
+
+        if abs(abs(original_delta) - abs_delta) > 0.01:
+            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({original_delta:.4f}) clamped to {abs_delta:.4f} = {result:.2f}%")
+        else:
+            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({original_delta:.4f}) = {result:.2f}%")
+
         return result
 
     def get_vol_for_strike(self, strike: float) -> float:
@@ -205,6 +211,42 @@ class VolatilitySmile:
 
         return strike
 
+    def build_strike_grid(self) -> Dict[str, float]:
+        """
+        Calcola gli strike per ogni delta pillar.
+
+        Returns:
+            Dict mapping pillar names to strike prices:
+            {'10P': strike_10p, '25P': strike_25p, 'ATM': strike_atm,
+             '25C': strike_25c, '10C': strike_10c}
+        """
+        if self.forward <= 0 or self.time_to_expiry <= 0:
+            # Return forward as fallback for all strikes
+            return {
+                '10P': self.forward,
+                '25P': self.forward,
+                'ATM': self.forward,
+                '25C': self.forward,
+                '10C': self.forward
+            }
+
+        strikes = {}
+
+        # Per ogni delta, calcola lo strike usando la vol corrispondente
+        # 10 delta put (delta = -0.10)
+        strikes['10P'] = self.delta_to_strike(-0.10, self.vol_10p)
+        strikes['25P'] = self.delta_to_strike(-0.25, self.vol_25p)
+        strikes['ATM'] = self.delta_to_strike(0.50, self.atm_vol)
+        strikes['25C'] = self.delta_to_strike(0.25, self.vol_25c)
+        strikes['10C'] = self.delta_to_strike(0.10, self.vol_10c)
+
+        logger.debug(f"VolSmile {self.tenor}: Strike grid - "
+                    f"10P={strikes['10P']:.5f}, 25P={strikes['25P']:.5f}, "
+                    f"ATM={strikes['ATM']:.5f}, 25C={strikes['25C']:.5f}, "
+                    f"10C={strikes['10C']:.5f}")
+
+        return strikes
+
 
 class VolatilitySurface:
     """
@@ -223,6 +265,11 @@ class VolatilitySurface:
         self.smiles: Dict[str, VolatilitySmile] = {}
         self.tenor_times: Dict[str, float] = {}
         self._time_interpolator = None
+        # Strike/vol grid for 2D interpolation
+        self._grid_times: List[float] = []
+        self._grid_strikes: List[List[float]] = []
+        self._grid_vols: List[List[float]] = []
+        self._strike_interps: List = []
 
     def add_smile(self, tenor: str, smile: VolatilitySmile) -> None:
         """Add a volatility smile for a specific tenor."""
@@ -278,6 +325,7 @@ class VolatilitySurface:
                        f"ATM={smile.atm_vol:.2f}%, 25C={smile.vol_25c:.2f}%, 10C={smile.vol_10c:.2f}%")
 
         self._build_time_interpolator()
+        self._build_strike_vol_grid()
         logger.info(f"VolSurface {self.cross}: Built with tenors {self._sorted_tenors} "
                    f"times {[f'{t:.4f}y' for t in self._sorted_times]}")
 
@@ -290,6 +338,102 @@ class VolatilitySurface:
         sorted_tenors = sorted(self.tenor_times.items(), key=lambda x: x[1])
         self._sorted_tenors = [t[0] for t in sorted_tenors]
         self._sorted_times = np.array([t[1] for t in sorted_tenors])
+
+    def _build_strike_vol_grid(self) -> None:
+        """
+        Costruisce griglia (strike, time) -> vol per interpolazione 2D.
+
+        Per ogni tenor, calcola gli strike corrispondenti ai 5 delta pillars
+        (10P, 25P, ATM, 25C, 10C) e memorizza la griglia per interpolazione.
+        """
+        if not self.smiles:
+            return
+
+        self._grid_times = []       # Lista di tempi
+        self._grid_strikes = []     # Lista di strike per ogni tempo (ordinati)
+        self._grid_vols = []        # Lista di vol per ogni tempo
+        self._strike_interps = []   # Interpolatori cubici strike->vol per ogni tenor
+
+        for tenor in self._sorted_tenors:
+            smile = self.smiles[tenor]
+            t = smile.time_to_expiry
+
+            # Calcola strike per i 5 delta pillars
+            strike_grid = smile.build_strike_grid()
+
+            # Ordina per strike crescente (10P < 25P < ATM < 25C < 10C)
+            strikes = [
+                strike_grid['10P'],
+                strike_grid['25P'],
+                strike_grid['ATM'],
+                strike_grid['25C'],
+                strike_grid['10C']
+            ]
+            vols = [
+                smile.vol_10p,
+                smile.vol_25p,
+                smile.atm_vol,
+                smile.vol_25c,
+                smile.vol_10c
+            ]
+
+            self._grid_times.append(t)
+            self._grid_strikes.append(strikes)
+            self._grid_vols.append(vols)
+
+            # Crea interpolatore cubico strike->vol per questo tenor
+            strike_interp = interpolate.CubicSpline(
+                strikes, vols, bc_type='natural'
+            )
+            self._strike_interps.append(strike_interp)
+
+            logger.debug(f"VolSurface {self.cross} {tenor}: Strike grid built - "
+                        f"K=[{strikes[0]:.5f}, {strikes[-1]:.5f}], "
+                        f"Vol=[{vols[0]:.2f}%, {vols[-1]:.2f}%]")
+
+    def _find_surrounding_tenors(self, time_to_expiry: float) -> Tuple[int, int]:
+        """
+        Trova gli indici dei due tenor circostanti per un dato time_to_expiry.
+
+        Returns:
+            Tuple (idx1, idx2) degli indici dei tenor circostanti.
+            Se time_to_expiry è fuori range, ritorna lo stesso indice per entrambi.
+        """
+        if time_to_expiry <= self._grid_times[0]:
+            return (0, 0)
+
+        if time_to_expiry >= self._grid_times[-1]:
+            last_idx = len(self._grid_times) - 1
+            return (last_idx, last_idx)
+
+        for i in range(len(self._grid_times) - 1):
+            if self._grid_times[i] <= time_to_expiry <= self._grid_times[i + 1]:
+                return (i, i + 1)
+
+        return (0, 0)
+
+    def _interpolate_smile_by_strike(self, tenor_idx: int, strike: float) -> float:
+        """
+        Interpola vol per uno strike dato, usando l'interpolatore cubico del tenor.
+
+        Args:
+            tenor_idx: Indice del tenor nella griglia
+            strike: Strike price
+
+        Returns:
+            Volatilità interpolata in %
+        """
+        strikes = self._grid_strikes[tenor_idx]
+        vols = self._grid_vols[tenor_idx]
+
+        # Extrapola flat ai bordi
+        if strike <= strikes[0]:
+            return vols[0]  # Wing put (10P vol)
+        if strike >= strikes[-1]:
+            return vols[-1]  # Wing call (10C vol)
+
+        # Usa interpolatore cubico
+        return float(self._strike_interps[tenor_idx](strike))
 
     def get_vol(self, time_to_expiry: float, delta: float = 0.5) -> float:
         """
@@ -344,60 +488,58 @@ class VolatilitySurface:
     def get_vol_for_strike(self, time_to_expiry: float, strike: float,
                           forward: float, is_call: bool = True) -> float:
         """
-        Get volatility for a specific strike and expiry.
+        Get volatility for a specific strike and expiry using strike-based interpolation.
 
-        Uses sticky-strike convention: for the same strike, call and put get
-        the same volatility. The delta used for interpolation is always the
-        OTM option delta (call delta for strike > forward, put delta for strike < forward).
+        Interpola direttamente sulla griglia strike/vol costruita dai delta pillars,
+        evitando la conversione circolare strike->delta->vol.
+
+        Processo:
+        1. Trova i due tenor circostanti (t1, t2)
+        2. Per ogni tenor, interpola vol vs strike usando spline cubica
+        3. Interpola linearmente in volatilità tra i due tenor
 
         Args:
             time_to_expiry: Time to expiry in years
             strike: Strike price
-            forward: Forward rate for this expiry
-            is_call: True for call option, False for put option (not used in sticky-strike)
+            forward: Forward rate for this expiry (not used, kept for API compatibility)
+            is_call: True for call option (not used, sticky-strike convention)
 
         Returns:
             Interpolated volatility in %
         """
-        if forward <= 0 or strike <= 0:
+        if not self._grid_times or strike <= 0:
             return self.get_vol(time_to_expiry, 0.5)
 
-        # First get ATM vol to estimate delta
-        atm_vol = self.get_vol(time_to_expiry, 0.5)
+        # Handle edge cases
+        if time_to_expiry <= 0:
+            time_to_expiry = 1/365  # Minimum 1 day
 
-        # Calculate approximate delta using this vol
-        vol_decimal = atm_vol / 100
-        sqrt_t = math.sqrt(max(time_to_expiry, 1/365))
+        # Trova i tenor circostanti
+        t1_idx, t2_idx = self._find_surrounding_tenors(time_to_expiry)
 
-        from scipy.stats import norm
+        # Interpola vol vs strike per ciascun tenor
+        vol1 = self._interpolate_smile_by_strike(t1_idx, strike)
 
-        log_moneyness = math.log(forward / strike)
-        d1 = (log_moneyness + 0.5 * vol_decimal * vol_decimal * time_to_expiry) / (vol_decimal * sqrt_t)
+        # Se siamo esattamente su un tenor o fuori range, ritorna direttamente
+        if t1_idx == t2_idx:
+            logger.debug(f"VolSurface.get_vol_for_strike: T={time_to_expiry:.4f}y, K={strike:.5f}, "
+                        f"single tenor idx={t1_idx}, vol={vol1:.2f}%")
+            return vol1
 
-        # For sticky-strike, we use the OTM option's delta for interpolation
-        # This ensures call and put at the same strike get the same vol
-        # - If strike > forward: OTM call, use call delta (positive)
-        # - If strike < forward: OTM put, use put delta (negative)
-        # - If strike = forward: ATM, use 0.5
-        call_delta = norm.cdf(d1)
+        vol2 = self._interpolate_smile_by_strike(t2_idx, strike)
 
-        if strike > forward:
-            # OTM call / ITM put: use call delta (positive)
-            delta = call_delta
-        elif strike < forward:
-            # ITM call / OTM put: use put delta (negative)
-            delta = call_delta - 1
-        else:
-            # ATM
-            delta = 0.5
+        # Interpola linearmente in volatilità tra i due tenor
+        t1 = self._grid_times[t1_idx]
+        t2 = self._grid_times[t2_idx]
 
-        # Now get vol for this delta
-        final_vol = self.get_vol(time_to_expiry, delta)
+        w = (time_to_expiry - t1) / (t2 - t1)
+        result = vol1 + w * (vol2 - vol1)
 
         logger.debug(f"VolSurface.get_vol_for_strike: T={time_to_expiry:.4f}y, K={strike:.5f}, "
-                    f"F={forward:.5f}, is_call={is_call}, atm_vol={atm_vol:.2f}%, delta={delta:.4f}, final_vol={final_vol:.2f}%")
+                    f"t1={t1:.4f}y (vol={vol1:.2f}%), t2={t2:.4f}y (vol={vol2:.2f}%), "
+                    f"interpolated={result:.2f}%")
 
-        return final_vol
+        return result
 
     def get_forward_for_expiry(self, time_to_expiry: float) -> float:
         """
