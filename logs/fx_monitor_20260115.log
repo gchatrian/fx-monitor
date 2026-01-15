@@ -2385,3 +2385,605 @@
 2026-01-15 11:30:42,120 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
 2026-01-15 11:30:42,410 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16380
 2026-01-15 11:30:42,410 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 11:33:45,112 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-15 11:33:45,252 - src.core.bloomberg_client - INFO - Bloomberg: Attempting connection to localhost:8194
+2026-01-15 11:33:45,479 - src.core.bloomberg_client - INFO - Bloomberg: Successfully connected to Bloomberg API
+2026-01-15 11:33:45,480 - src.core.market_data_provider - INFO - Bloomberg API connected successfully
+2026-01-15 11:33:46,936 - __main__ - INFO - Application started successfully
+2026-01-15 11:33:46,943 - src.core.portfolio_manager - INFO - Loaded 16 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-15 11:33:46,947 - src.core.forward_manager - INFO - Loaded 8 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-15 11:33:46,947 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:33:47,245 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93173
+2026-01-15 11:33:47,246 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURCHF (14 tenors)
+2026-01-15 11:33:49,946 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURCHF
+2026-01-15 11:33:49,946 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURCHF (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:33:53,606 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURCHF (0 errors)
+2026-01-15 11:33:53,606 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF ATM vols: 1M=3.68%, 1W=3.54%, 1Y=5.01%, 2M=3.83%, 2W=3.50%, 3M=4.06%, 6M=4.51%, 9M=4.84%
+2026-01-15 11:33:53,608 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1W smile - ATM=3.54%, 25RR=-0.44, 10RR=-0.82, 25BF=0.15, 10BF=0.51
+2026-01-15 11:33:53,608 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.45%, 25P=3.91%, ATM=3.54%, 25C=3.47%, 10C=3.63%
+2026-01-15 11:33:53,609 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 2W smile - ATM=3.50%, 25RR=-0.44, 10RR=-0.82, 25BF=0.16, 10BF=0.52
+2026-01-15 11:33:53,610 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.44%, 25P=3.89%, ATM=3.50%, 25C=3.44%, 10C=3.61%
+2026-01-15 11:33:53,611 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 3M smile - ATM=4.06%, 25RR=-0.59, 10RR=-1.12, 25BF=0.22, 10BF=0.74
+2026-01-15 11:33:53,611 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.37%, 25P=4.58%, ATM=4.06%, 25C=3.99%, 10C=4.24%
+2026-01-15 11:33:53,613 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 6M smile - ATM=4.51%, 25RR=-0.66, 10RR=-1.26, 25BF=0.24, 10BF=0.83
+2026-01-15 11:33:53,613 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.98%, 25P=5.08%, ATM=4.51%, 25C=4.43%, 10C=4.72%
+2026-01-15 11:33:53,614 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 9M smile - ATM=4.84%, 25RR=-0.72, 10RR=-1.40, 25BF=0.28, 10BF=0.90
+2026-01-15 11:33:53,615 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.44%, 25P=5.48%, ATM=4.84%, 25C=4.76%, 10C=5.05%
+2026-01-15 11:33:53,615 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1Y smile - ATM=5.01%, 25RR=-0.80, 10RR=-1.54, 25BF=0.28, 10BF=0.96
+2026-01-15 11:33:53,615 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.74%, 25P=5.69%, ATM=5.01%, 25C=4.89%, 10C=5.20%
+2026-01-15 11:33:53,616 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1M smile - ATM=3.68%, 25RR=-0.47, 10RR=-0.90, 25BF=0.17, 10BF=0.59
+2026-01-15 11:33:53,616 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.72%, 25P=4.09%, ATM=3.68%, 25C=3.62%, 10C=3.82%
+2026-01-15 11:33:53,617 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 2M smile - ATM=3.83%, 25RR=-0.54, 10RR=-1.01, 25BF=0.15, 10BF=0.64
+2026-01-15 11:33:53,617 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.97%, 25P=4.25%, ATM=3.83%, 25C=3.72%, 10C=3.96%
+2026-01-15 11:33:53,617 - src.core.volatility_surface - INFO - VolSurface EURCHF: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:33:53,618 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDJPY (ticker: USDJPY Curncy)
+2026-01-15 11:33:53,868 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY spot rate = 158.43000
+2026-01-15 11:33:53,868 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDJPY (14 tenors)
+2026-01-15 11:33:57,455 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDJPY
+2026-01-15 11:33:57,455 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDJPY (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:01,126 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDJPY (0 errors)
+2026-01-15 11:34:01,127 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY ATM vols: 1M=8.73%, 1W=7.23%, 1Y=9.34%, 2M=8.77%, 2W=8.28%, 3M=8.95%, 6M=9.18%, 9M=9.31%
+2026-01-15 11:34:01,129 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1M smile - ATM=8.73%, 25RR=-0.57, 10RR=-1.07, 25BF=0.30, 10BF=1.02
+2026-01-15 11:34:01,130 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.29%, 25P=9.32%, ATM=8.73%, 25C=8.75%, 10C=9.22%
+2026-01-15 11:34:01,132 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 2M smile - ATM=8.77%, 25RR=-0.56, 10RR=-1.08, 25BF=0.32, 10BF=1.08
+2026-01-15 11:34:01,132 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.39%, 25P=9.37%, ATM=8.77%, 25C=8.80%, 10C=9.32%
+2026-01-15 11:34:01,134 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 9M smile - ATM=9.31%, 25RR=-0.34, 10RR=-0.65, 25BF=0.35, 10BF=1.27
+2026-01-15 11:34:01,134 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.90%, 25P=9.83%, ATM=9.31%, 25C=9.49%, 10C=10.26%
+2026-01-15 11:34:01,135 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1Y smile - ATM=9.34%, 25RR=-0.29, 10RR=-0.55, 25BF=0.37, 10BF=1.33
+2026-01-15 11:34:01,136 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.94%, 25P=9.85%, ATM=9.34%, 25C=9.56%, 10C=10.39%
+2026-01-15 11:34:01,137 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 3M smile - ATM=8.95%, 25RR=-0.53, 10RR=-0.99, 25BF=0.32, 10BF=1.15
+2026-01-15 11:34:01,138 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.59%, 25P=9.53%, ATM=8.95%, 25C=9.00%, 10C=9.59%
+2026-01-15 11:34:01,139 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 6M smile - ATM=9.18%, 25RR=-0.43, 10RR=-0.81, 25BF=0.34, 10BF=1.20
+2026-01-15 11:34:01,140 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.79%, 25P=9.73%, ATM=9.18%, 25C=9.30%, 10C=9.97%
+2026-01-15 11:34:01,141 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1W smile - ATM=7.23%, 25RR=-0.70, 10RR=-1.32, 25BF=0.32, 10BF=1.05
+2026-01-15 11:34:01,142 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.94%, 25P=7.90%, ATM=7.23%, 25C=7.20%, 10C=7.62%
+2026-01-15 11:34:01,143 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 2W smile - ATM=8.28%, 25RR=-0.67, 10RR=-1.25, 25BF=0.31, 10BF=1.04
+2026-01-15 11:34:01,144 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.95%, 25P=8.92%, ATM=8.28%, 25C=8.25%, 10C=8.70%
+2026-01-15 11:34:01,144 - src.core.volatility_surface - INFO - VolSurface USDJPY: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:01,146 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDUSD (ticker: AUDUSD Curncy)
+2026-01-15 11:34:01,445 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD spot rate = 0.66990
+2026-01-15 11:34:01,446 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDUSD (14 tenors)
+2026-01-15 11:34:07,642 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDUSD
+2026-01-15 11:34:07,643 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:11,640 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDUSD (0 errors)
+2026-01-15 11:34:11,640 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD ATM vols: 1M=7.43%, 1W=6.60%, 1Y=9.16%, 2M=7.75%, 2W=7.20%, 3M=8.03%, 6M=8.56%, 9M=8.95%
+2026-01-15 11:34:11,642 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1W smile - ATM=6.60%, 25RR=-0.52, 10RR=-0.96, 25BF=0.18, 10BF=0.59
+2026-01-15 11:34:11,642 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.67%, 25P=7.04%, ATM=6.60%, 25C=6.52%, 10C=6.71%
+2026-01-15 11:34:11,643 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 2W smile - ATM=7.20%, 25RR=-0.54, 10RR=-0.99, 25BF=0.19, 10BF=0.65
+2026-01-15 11:34:11,644 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.34%, 25P=7.66%, ATM=7.20%, 25C=7.13%, 10C=7.35%
+2026-01-15 11:34:11,644 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 3M smile - ATM=8.03%, 25RR=-0.73, 10RR=-1.53, 25BF=0.26, 10BF=0.85
+2026-01-15 11:34:11,645 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.65%, 25P=8.66%, ATM=8.03%, 25C=7.92%, 10C=8.12%
+2026-01-15 11:34:11,645 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 6M smile - ATM=8.56%, 25RR=-0.80, 10RR=-1.69, 25BF=0.29, 10BF=0.97
+2026-01-15 11:34:11,646 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.38%, 25P=9.26%, ATM=8.56%, 25C=8.46%, 10C=8.69%
+2026-01-15 11:34:11,646 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 9M smile - ATM=8.95%, 25RR=-0.86, 10RR=-1.82, 25BF=0.33, 10BF=1.08
+2026-01-15 11:34:11,647 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.95%, 25P=9.71%, ATM=8.95%, 25C=8.85%, 10C=9.12%
+2026-01-15 11:34:11,648 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1Y smile - ATM=9.16%, 25RR=-0.96, 10RR=-2.00, 25BF=0.35, 10BF=1.19
+2026-01-15 11:34:11,648 - src.core.volatility_surface - INFO -   -> Smile points: 10P=11.34%, 25P=10.00%, ATM=9.16%, 25C=9.03%, 10C=9.35%
+2026-01-15 11:34:11,649 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1M smile - ATM=7.43%, 25RR=-0.59, 10RR=-1.19, 25BF=0.22, 10BF=0.69
+2026-01-15 11:34:11,649 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.71%, 25P=7.95%, ATM=7.43%, 25C=7.36%, 10C=7.53%
+2026-01-15 11:34:11,649 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 2M smile - ATM=7.75%, 25RR=-0.65, 10RR=-1.34, 25BF=0.24, 10BF=0.78
+2026-01-15 11:34:11,650 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.19%, 25P=8.31%, ATM=7.75%, 25C=7.66%, 10C=7.85%
+2026-01-15 11:34:11,650 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:11,650 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDCAD (ticker: USDCAD Curncy)
+2026-01-15 11:34:11,929 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD spot rate = 1.39040
+2026-01-15 11:34:11,930 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDCAD (14 tenors)
+2026-01-15 11:34:12,893 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDCAD
+2026-01-15 11:34:12,894 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDCAD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:17,937 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDCAD (0 errors)
+2026-01-15 11:34:17,937 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD ATM vols: 1M=4.25%, 1W=3.61%, 1Y=5.30%, 2M=4.35%, 2W=4.08%, 3M=4.51%, 6M=4.85%, 9M=5.12%
+2026-01-15 11:34:17,939 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1W smile - ATM=3.61%, 25RR=0.07, 10RR=0.11, 25BF=0.11, 10BF=0.36
+2026-01-15 11:34:17,940 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.91%, 25P=3.69%, ATM=3.61%, 25C=3.75%, 10C=4.03%
+2026-01-15 11:34:17,943 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 2W smile - ATM=4.08%, 25RR=0.07, 10RR=0.12, 25BF=0.11, 10BF=0.38
+2026-01-15 11:34:17,944 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.40%, 25P=4.16%, ATM=4.08%, 25C=4.23%, 10C=4.52%
+2026-01-15 11:34:17,945 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1M smile - ATM=4.25%, 25RR=0.09, 10RR=0.15, 25BF=0.12, 10BF=0.44
+2026-01-15 11:34:17,946 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.62%, 25P=4.33%, ATM=4.25%, 25C=4.42%, 10C=4.77%
+2026-01-15 11:34:17,947 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 2M smile - ATM=4.35%, 25RR=0.08, 10RR=0.17, 25BF=0.14, 10BF=0.47
+2026-01-15 11:34:17,948 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.74%, 25P=4.45%, ATM=4.35%, 25C=4.53%, 10C=4.90%
+2026-01-15 11:34:17,949 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 3M smile - ATM=4.51%, 25RR=0.09, 10RR=0.17, 25BF=0.15, 10BF=0.53
+2026-01-15 11:34:17,950 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.96%, 25P=4.62%, ATM=4.51%, 25C=4.70%, 10C=5.12%
+2026-01-15 11:34:17,951 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 6M smile - ATM=4.85%, 25RR=0.07, 10RR=0.14, 25BF=0.17, 10BF=0.64
+2026-01-15 11:34:17,952 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.42%, 25P=4.99%, ATM=4.85%, 25C=5.05%, 10C=5.56%
+2026-01-15 11:34:17,953 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 9M smile - ATM=5.12%, 25RR=0.05, 10RR=0.12, 25BF=0.19, 10BF=0.72
+2026-01-15 11:34:17,954 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.78%, 25P=5.29%, ATM=5.12%, 25C=5.34%, 10C=5.90%
+2026-01-15 11:34:17,955 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1Y smile - ATM=5.30%, 25RR=0.05, 10RR=0.12, 25BF=0.23, 10BF=0.85
+2026-01-15 11:34:17,956 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.09%, 25P=5.51%, ATM=5.30%, 25C=5.55%, 10C=6.21%
+2026-01-15 11:34:17,957 - src.core.volatility_surface - INFO - VolSurface USDCAD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:17,957 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURGBP (ticker: EURGBP Curncy)
+2026-01-15 11:34:18,222 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP spot rate = 0.86665
+2026-01-15 11:34:18,223 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURGBP (14 tenors)
+2026-01-15 11:34:21,997 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURGBP
+2026-01-15 11:34:21,998 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURGBP (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:25,605 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURGBP (0 errors)
+2026-01-15 11:34:25,605 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP ATM vols: 1M=3.67%, 1W=3.27%, 1Y=5.05%, 2M=3.87%, 2W=3.38%, 3M=4.11%, 6M=4.60%, 9M=4.90%
+2026-01-15 11:34:25,607 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 9M smile - ATM=4.90%, 25RR=0.82, 10RR=1.57, 25BF=0.23, 10BF=0.78
+2026-01-15 11:34:25,608 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.90%, 25P=4.72%, ATM=4.90%, 25C=5.54%, 10C=6.47%
+2026-01-15 11:34:25,609 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1Y smile - ATM=5.05%, 25RR=0.91, 10RR=1.73, 25BF=0.25, 10BF=0.85
+2026-01-15 11:34:25,610 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.04%, 25P=4.85%, ATM=5.05%, 25C=5.76%, 10C=6.77%
+2026-01-15 11:34:25,611 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1M smile - ATM=3.67%, 25RR=0.33, 10RR=0.62, 25BF=0.13, 10BF=0.43
+2026-01-15 11:34:25,612 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.78%, 25P=3.63%, ATM=3.67%, 25C=3.96%, 10C=4.41%
+2026-01-15 11:34:25,613 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 2M smile - ATM=3.87%, 25RR=0.44, 10RR=0.83, 25BF=0.14, 10BF=0.48
+2026-01-15 11:34:25,614 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.93%, 25P=3.79%, ATM=3.87%, 25C=4.23%, 10C=4.76%
+2026-01-15 11:34:25,616 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 3M smile - ATM=4.11%, 25RR=0.53, 10RR=1.00, 25BF=0.16, 10BF=0.52
+2026-01-15 11:34:25,616 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.13%, 25P=4.00%, ATM=4.11%, 25C=4.53%, 10C=5.13%
+2026-01-15 11:34:25,617 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 6M smile - ATM=4.60%, 25RR=0.68, 10RR=1.30, 25BF=0.20, 10BF=0.67
+2026-01-15 11:34:25,618 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.61%, 25P=4.46%, ATM=4.60%, 25C=5.14%, 10C=5.92%
+2026-01-15 11:34:25,619 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1W smile - ATM=3.27%, 25RR=0.20, 10RR=0.37, 25BF=0.12, 10BF=0.40
+2026-01-15 11:34:25,620 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.48%, 25P=3.29%, ATM=3.27%, 25C=3.49%, 10C=3.85%
+2026-01-15 11:34:25,621 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 2W smile - ATM=3.38%, 25RR=0.26, 10RR=0.47, 25BF=0.12, 10BF=0.41
+2026-01-15 11:34:25,621 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.55%, 25P=3.38%, ATM=3.38%, 25C=3.64%, 10C=4.03%
+2026-01-15 11:34:25,622 - src.core.volatility_surface - INFO - VolSurface EURGBP: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:25,623 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDNZD (ticker: AUDNZD Curncy)
+2026-01-15 11:34:25,848 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD spot rate = 1.16480
+2026-01-15 11:34:25,848 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDNZD (14 tenors)
+2026-01-15 11:34:26,543 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDNZD
+2026-01-15 11:34:26,544 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDNZD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:29,053 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDNZD (0 errors)
+2026-01-15 11:34:29,053 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD ATM vols: 1M=4.80%, 1W=4.26%, 1Y=4.95%, 2M=4.74%, 2W=4.61%, 3M=4.79%, 6M=4.89%, 9M=4.92%
+2026-01-15 11:34:29,054 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 9M smile - ATM=4.92%, 25RR=0.06, 10RR=0.10, 25BF=0.11, 10BF=0.34
+2026-01-15 11:34:29,054 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.21%, 25P=4.99%, ATM=4.92%, 25C=5.05%, 10C=5.30%
+2026-01-15 11:34:29,056 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1Y smile - ATM=4.95%, 25RR=0.06, 10RR=0.10, 25BF=0.12, 10BF=0.38
+2026-01-15 11:34:29,056 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.28%, 25P=5.03%, ATM=4.95%, 25C=5.09%, 10C=5.37%
+2026-01-15 11:34:29,057 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1M smile - ATM=4.80%, 25RR=0.10, 10RR=0.17, 25BF=0.07, 10BF=0.21
+2026-01-15 11:34:29,057 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.93%, 25P=4.82%, ATM=4.80%, 25C=4.93%, 10C=5.10%
+2026-01-15 11:34:29,057 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 2M smile - ATM=4.74%, 25RR=0.09, 10RR=0.15, 25BF=0.07, 10BF=0.23
+2026-01-15 11:34:29,057 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.89%, 25P=4.77%, ATM=4.74%, 25C=4.85%, 10C=5.04%
+2026-01-15 11:34:29,058 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1W smile - ATM=4.26%, 25RR=0.09, 10RR=0.11, 25BF=0.05, 10BF=0.14
+2026-01-15 11:34:29,058 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.35%, 25P=4.27%, ATM=4.26%, 25C=4.36%, 10C=4.46%
+2026-01-15 11:34:29,059 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 2W smile - ATM=4.61%, 25RR=0.09, 10RR=0.12, 25BF=0.05, 10BF=0.15
+2026-01-15 11:34:29,060 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.70%, 25P=4.62%, ATM=4.61%, 25C=4.70%, 10C=4.82%
+2026-01-15 11:34:29,060 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 3M smile - ATM=4.79%, 25RR=0.07, 10RR=0.12, 25BF=0.08, 10BF=0.26
+2026-01-15 11:34:29,060 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.99%, 25P=4.84%, ATM=4.79%, 25C=4.91%, 10C=5.12%
+2026-01-15 11:34:29,061 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 6M smile - ATM=4.89%, 25RR=0.07, 10RR=0.11, 25BF=0.10, 10BF=0.32
+2026-01-15 11:34:29,061 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.15%, 25P=4.95%, ATM=4.89%, 25C=5.02%, 10C=5.26%
+2026-01-15 11:34:29,061 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:29,061 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:34:29,320 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16400
+2026-01-15 11:34:29,321 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 11:34:33,375 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 11:34:33,376 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:36,925 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 11:34:36,925 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD ATM vols: 1M=5.06%, 1W=4.26%, 1Y=6.38%, 2M=5.27%, 2W=4.82%, 3M=5.48%, 6M=5.84%, 9M=6.16%
+2026-01-15 11:34:36,926 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1W smile - ATM=4.26%, 25RR=0.01, 10RR=0.01, 25BF=0.16, 10BF=0.53
+2026-01-15 11:34:36,927 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.79%, 25P=4.42%, ATM=4.26%, 25C=4.43%, 10C=4.79%
+2026-01-15 11:34:36,927 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 2W smile - ATM=4.82%, 25RR=0.03, 10RR=0.04, 25BF=0.16, 10BF=0.55
+2026-01-15 11:34:36,928 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.34%, 25P=4.96%, ATM=4.82%, 25C=4.99%, 10C=5.38%
+2026-01-15 11:34:36,929 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 9M smile - ATM=6.16%, 25RR=0.17, 10RR=0.33, 25BF=0.28, 10BF=1.04
+2026-01-15 11:34:36,929 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.04%, 25P=6.35%, ATM=6.16%, 25C=6.52%, 10C=7.37%
+2026-01-15 11:34:36,929 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1Y smile - ATM=6.38%, 25RR=0.20, 10RR=0.38, 25BF=0.30, 10BF=1.14
+2026-01-15 11:34:36,930 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.32%, 25P=6.58%, ATM=6.38%, 25C=6.78%, 10C=7.71%
+2026-01-15 11:34:36,930 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1M smile - ATM=5.06%, 25RR=0.05, 10RR=0.09, 25BF=0.17, 10BF=0.60
+2026-01-15 11:34:36,930 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.62%, 25P=5.21%, ATM=5.06%, 25C=5.26%, 10C=5.71%
+2026-01-15 11:34:36,931 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 2M smile - ATM=5.27%, 25RR=0.08, 10RR=0.14, 25BF=0.19, 10BF=0.70
+2026-01-15 11:34:36,931 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.90%, 25P=5.42%, ATM=5.27%, 25C=5.50%, 10C=6.04%
+2026-01-15 11:34:36,932 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 3M smile - ATM=5.48%, 25RR=0.10, 10RR=0.17, 25BF=0.21, 10BF=0.78
+2026-01-15 11:34:36,932 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.17%, 25P=5.65%, ATM=5.48%, 25C=5.75%, 10C=6.34%
+2026-01-15 11:34:36,933 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 6M smile - ATM=5.84%, 25RR=0.14, 10RR=0.25, 25BF=0.25, 10BF=0.93
+2026-01-15 11:34:36,933 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.64%, 25P=6.02%, ATM=5.84%, 25C=6.17%, 10C=6.89%
+2026-01-15 11:34:36,934 - src.core.volatility_surface - INFO - VolSurface EURUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:36,934 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for GBPUSD (ticker: GBPUSD Curncy)
+2026-01-15 11:34:37,183 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD spot rate = 1.34310
+2026-01-15 11:34:37,184 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for GBPUSD (14 tenors)
+2026-01-15 11:34:42,246 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for GBPUSD
+2026-01-15 11:34:42,247 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for GBPUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:34:46,953 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for GBPUSD (0 errors)
+2026-01-15 11:34:46,953 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD ATM vols: 1M=5.76%, 1W=5.02%, 1Y=7.50%, 2M=6.04%, 2W=5.47%, 3M=6.29%, 6M=6.88%, 9M=7.29%
+2026-01-15 11:34:46,956 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 3M smile - ATM=6.29%, 25RR=-0.39, 10RR=-0.74, 25BF=0.20, 10BF=0.68
+2026-01-15 11:34:46,956 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.34%, 25P=6.68%, ATM=6.29%, 25C=6.29%, 10C=6.59%
+2026-01-15 11:34:46,958 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 6M smile - ATM=6.88%, 25RR=-0.53, 10RR=-1.02, 25BF=0.24, 10BF=0.85
+2026-01-15 11:34:46,959 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.24%, 25P=7.38%, ATM=6.88%, 25C=6.86%, 10C=7.22%
+2026-01-15 11:34:46,960 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1M smile - ATM=5.76%, 25RR=-0.29, 10RR=-0.54, 25BF=0.15, 10BF=0.52
+2026-01-15 11:34:46,960 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.54%, 25P=6.05%, ATM=5.76%, 25C=5.76%, 10C=6.01%
+2026-01-15 11:34:46,962 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 2M smile - ATM=6.04%, 25RR=-0.34, 10RR=-0.65, 25BF=0.18, 10BF=0.61
+2026-01-15 11:34:46,962 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.97%, 25P=6.38%, ATM=6.04%, 25C=6.04%, 10C=6.32%
+2026-01-15 11:34:46,964 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1W smile - ATM=5.02%, 25RR=-0.23, 10RR=-0.42, 25BF=0.13, 10BF=0.42
+2026-01-15 11:34:46,964 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.65%, 25P=5.26%, ATM=5.02%, 25C=5.03%, 10C=5.24%
+2026-01-15 11:34:46,965 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 2W smile - ATM=5.47%, 25RR=-0.26, 10RR=-0.47, 25BF=0.13, 10BF=0.44
+2026-01-15 11:34:46,966 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.15%, 25P=5.73%, ATM=5.47%, 25C=5.47%, 10C=5.67%
+2026-01-15 11:34:46,967 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 9M smile - ATM=7.29%, 25RR=-0.62, 10RR=-1.23, 25BF=0.28, 10BF=0.98
+2026-01-15 11:34:46,968 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.89%, 25P=7.88%, ATM=7.29%, 25C=7.26%, 10C=7.66%
+2026-01-15 11:34:46,969 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1Y smile - ATM=7.50%, 25RR=-0.69, 10RR=-1.38, 25BF=0.30, 10BF=1.08
+2026-01-15 11:34:46,970 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.28%, 25P=8.16%, ATM=7.50%, 25C=7.46%, 10C=7.90%
+2026-01-15 11:34:46,971 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:34:49,114 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-10: S=1.16400, F=1.16858, vol=5.43%, T=0.2329y
+2026-01-15 11:34:49,115 - src.core.pricing_engine - INFO -   Trade price: 0.010965 (1.0965%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,116 - src.core.pricing_engine - INFO -   QuantLib price: 0.008335 (0.8335%), delta=0.4359, vega=0.002215
+2026-01-15 11:34:49,118 - src.core.pricing_engine - INFO -   Forward delta: 0.4350, gamma_1pct: 0.142341, vega_usd: -15,508, vega_eur: -13,323
+2026-01-15 11:34:49,119 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008335, delta_notional: -3,045,233, gamma_1pct: -996,388, vega_eur: -13,323, pnl: 18,413 EUR
+2026-01-15 11:34:49,120 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-10: S=1.16400, F=1.16858, vol=5.43%, T=0.2329y
+2026-01-15 11:34:49,120 - src.core.pricing_engine - INFO -   Trade price: 0.010821 (1.0821%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,121 - src.core.pricing_engine - INFO -   QuantLib price: 0.012982 (1.2982%), delta=-0.5661, vega=0.002215
+2026-01-15 11:34:49,123 - src.core.pricing_engine - INFO -   Forward delta: -0.5650, gamma_1pct: 0.142341, vega_usd: -15,508, vega_eur: -13,323
+2026-01-15 11:34:49,124 - src.core.pricing_engine - INFO -   Final values - current_price: 0.012982, delta_notional: 3,954,767, gamma_1pct: -996,388, vega_eur: -13,323, pnl: -15,132 EUR
+2026-01-15 11:34:49,125 - src.core.pricing_engine - INFO - Pricing GBPUSD Call K=1.34550 exp=2026-04-10: S=1.34310, F=1.34294, vol=6.23%, T=0.2329y
+2026-01-15 11:34:49,125 - src.core.pricing_engine - INFO -   Trade price: 0.012500 (1.2500%), Direction: Short, Notional: 6,000,000
+2026-01-15 11:34:49,126 - src.core.pricing_engine - INFO -   QuantLib price: 0.011076 (1.1076%), delta=0.4807, vega=0.002583
+2026-01-15 11:34:49,129 - src.core.pricing_engine - INFO -   Forward delta: 0.4807, gamma_1pct: 0.116857, vega_usd: -15,495, vega_eur: -13,312
+2026-01-15 11:34:49,129 - src.core.pricing_engine - INFO -   Final values - current_price: 0.011076, delta_notional: -2,884,160, gamma_1pct: -701,143, vega_eur: -13,312, pnl: 9,857 EUR
+2026-01-15 11:34:49,130 - src.core.pricing_engine - INFO - Pricing GBPUSD Put K=1.34550 exp=2026-04-10: S=1.34310, F=1.34294, vol=6.23%, T=0.2329y
+2026-01-15 11:34:49,130 - src.core.pricing_engine - INFO -   Trade price: 0.012667 (1.2667%), Direction: Short, Notional: 6,000,000
+2026-01-15 11:34:49,131 - src.core.pricing_engine - INFO -   QuantLib price: 0.012986 (1.2986%), delta=-0.5193, vega=0.002583
+2026-01-15 11:34:49,133 - src.core.pricing_engine - INFO -   Forward delta: -0.5193, gamma_1pct: 0.116857, vega_usd: -15,495, vega_eur: -13,312
+2026-01-15 11:34:49,133 - src.core.pricing_engine - INFO -   Final values - current_price: 0.012986, delta_notional: 3,115,840, gamma_1pct: -701,143, vega_eur: -13,312, pnl: -2,211 EUR
+2026-01-15 11:34:49,134 - src.core.pricing_engine - INFO - Pricing USDJPY Call K=156.75000 exp=2026-04-10: S=158.43000, F=157.29587, vol=10.55%, T=0.2329y
+2026-01-15 11:34:49,134 - src.core.pricing_engine - INFO -   Trade price: 0.016487 (1.6487%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:34:49,135 - src.core.pricing_engine - INFO -   QuantLib price: 0.021973 (2.1973%), delta=0.5354, vega=0.302581
+2026-01-15 11:34:49,137 - src.core.pricing_engine - INFO -   Forward delta: 0.5373, gamma_1pct: 0.076452, vega_usd: -15,279, vega_eur: -13,126
+2026-01-15 11:34:49,138 - src.core.pricing_engine - INFO -   Final values - current_price: 0.021973, delta_notional: -4,298,758, gamma_1pct: -611,616, vega_eur: -13,126, pnl: -37,699 EUR
+2026-01-15 11:34:49,139 - src.core.pricing_engine - INFO - Pricing USDJPY Put K=156.75000 exp=2026-04-10: S=158.43000, F=157.29587, vol=10.55%, T=0.2329y
+2026-01-15 11:34:49,139 - src.core.pricing_engine - INFO -   Trade price: 0.016887 (1.6887%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:34:49,139 - src.core.pricing_engine - INFO -   QuantLib price: 0.018515 (1.8515%), delta=-0.4610, vega=0.302581
+2026-01-15 11:34:49,141 - src.core.pricing_engine - INFO -   Forward delta: -0.4627, gamma_1pct: 0.076452, vega_usd: -15,279, vega_eur: -13,126
+2026-01-15 11:34:49,141 - src.core.pricing_engine - INFO -   Final values - current_price: 0.018515, delta_notional: 3,701,242, gamma_1pct: -611,616, vega_eur: -13,126, pnl: -11,184 EUR
+2026-01-15 11:34:49,142 - src.core.pricing_engine - INFO - Pricing EURGBP Call K=0.87120 exp=2026-04-10: S=0.86665, F=0.87017, vol=4.06%, T=0.2329y
+2026-01-15 11:34:49,142 - src.core.pricing_engine - INFO -   Trade price: 0.008071 (0.8071%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,143 - src.core.pricing_engine - INFO -   QuantLib price: 0.007261 (0.7261%), delta=0.4807, vega=0.001670
+2026-01-15 11:34:49,145 - src.core.pricing_engine - INFO -   Forward delta: 0.4798, gamma_1pct: 0.195315, vega_usd: -15,698, vega_eur: -13,486
+2026-01-15 11:34:49,145 - src.core.pricing_engine - INFO -   Final values - current_price: 0.007261, delta_notional: -3,358,288, gamma_1pct: -1,367,202, vega_eur: -13,486, pnl: 5,672 EUR
+2026-01-15 11:34:49,147 - src.core.pricing_engine - INFO - Pricing EURGBP Put K=0.87120 exp=2026-04-10: S=0.86665, F=0.87017, vol=4.06%, T=0.2329y
+2026-01-15 11:34:49,147 - src.core.pricing_engine - INFO -   Trade price: 0.008071 (0.8071%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,148 - src.core.pricing_engine - INFO -   QuantLib price: 0.008452 (0.8452%), delta=-0.5213, vega=0.001670
+2026-01-15 11:34:49,150 - src.core.pricing_engine - INFO -   Forward delta: -0.5202, gamma_1pct: 0.195315, vega_usd: -15,698, vega_eur: -13,486
+2026-01-15 11:34:49,150 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008452, delta_notional: 3,641,712, gamma_1pct: -1,367,202, vega_eur: -13,486, pnl: -2,663 EUR
+2026-01-15 11:34:49,151 - src.core.pricing_engine - INFO - Pricing EURCHF Call K=0.92650 exp=2026-04-10: S=0.93173, F=0.92712, vol=5.28%, T=0.2329y
+2026-01-15 11:34:49,152 - src.core.pricing_engine - INFO -   Trade price: 0.008000 (0.8000%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,152 - src.core.pricing_engine - INFO -   QuantLib price: 0.010479 (1.0479%), delta=0.5142, vega=0.001788
+2026-01-15 11:34:49,154 - src.core.pricing_engine - INFO -   Forward delta: 0.5155, gamma_1pct: 0.150562, vega_usd: -13,906, vega_eur: -11,947
+2026-01-15 11:34:49,154 - src.core.pricing_engine - INFO -   Final values - current_price: 0.010479, delta_notional: -3,608,287, gamma_1pct: -1,053,937, vega_eur: -11,947, pnl: -17,353 EUR
+2026-01-15 11:34:49,155 - src.core.pricing_engine - INFO - Pricing EURCHF Put K=0.92650 exp=2026-04-10: S=0.93173, F=0.92712, vol=5.28%, T=0.2329y
+2026-01-15 11:34:49,155 - src.core.pricing_engine - INFO -   Trade price: 0.008000 (0.8000%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:34:49,156 - src.core.pricing_engine - INFO -   QuantLib price: 0.009817 (0.9817%), delta=-0.4833, vega=0.001788
+2026-01-15 11:34:49,158 - src.core.pricing_engine - INFO -   Forward delta: -0.4845, gamma_1pct: 0.150562, vega_usd: -13,906, vega_eur: -11,947
+2026-01-15 11:34:49,159 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009817, delta_notional: 3,391,713, gamma_1pct: -1,053,937, vega_eur: -11,947, pnl: -12,718 EUR
+2026-01-15 11:34:49,159 - src.core.pricing_engine - INFO - Pricing USDCAD Call K=1.38300 exp=2026-04-10: S=1.39040, F=1.38546, vol=4.91%, T=0.2329y
+2026-01-15 11:34:49,160 - src.core.pricing_engine - INFO -   Trade price: 0.008956 (0.8956%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:34:49,160 - src.core.pricing_engine - INFO -   QuantLib price: 0.010341 (1.0341%), delta=0.5336, vega=0.002662
+2026-01-15 11:34:49,162 - src.core.pricing_engine - INFO -   Forward delta: 0.5346, gamma_1pct: 0.159224, vega_usd: -15,316, vega_eur: -13,158
+2026-01-15 11:34:49,162 - src.core.pricing_engine - INFO -   Final values - current_price: 0.010341, delta_notional: -4,276,693, gamma_1pct: -1,273,789, vega_eur: -13,158, pnl: -9,518 EUR
+2026-01-15 11:34:49,163 - src.core.pricing_engine - INFO - Pricing USDCAD Put K=1.38300 exp=2026-04-10: S=1.39040, F=1.38546, vol=4.91%, T=0.2329y
+2026-01-15 11:34:49,163 - src.core.pricing_engine - INFO -   Trade price: 0.008956 (0.8956%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:34:49,164 - src.core.pricing_engine - INFO -   QuantLib price: 0.008570 (0.8570%), delta=-0.4646, vega=0.002662
+2026-01-15 11:34:49,166 - src.core.pricing_engine - INFO -   Forward delta: -0.4654, gamma_1pct: 0.159224, vega_usd: -15,316, vega_eur: -13,158
+2026-01-15 11:34:49,167 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008570, delta_notional: 3,723,307, gamma_1pct: -1,273,789, vega_eur: -13,158, pnl: 2,658 EUR
+2026-01-15 11:34:49,167 - src.core.pricing_engine - INFO - Pricing AUDUSD Call K=0.67150 exp=2026-04-10: S=0.66990, F=0.66992, vol=7.97%, T=0.2329y
+2026-01-15 11:34:49,168 - src.core.pricing_engine - INFO -   Trade price: 0.015542 (1.5542%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:34:49,168 - src.core.pricing_engine - INFO -   QuantLib price: 0.014209 (1.4209%), delta=0.4833, vega=0.001289
+2026-01-15 11:34:49,169 - src.core.pricing_engine - INFO -   Forward delta: 0.4833, gamma_1pct: 0.091209, vega_usd: -15,463, vega_eur: -13,284
+2026-01-15 11:34:49,169 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:34:49,169 - src.core.pricing_engine - INFO -   Final values - current_price: 0.014209, delta_notional: -5,799,026, gamma_1pct: -1,094,505, vega_eur: -13,284, pnl: 13,741 EUR
+2026-01-15 11:34:49,170 - src.core.pricing_engine - INFO - Pricing AUDUSD Put K=0.67150 exp=2026-04-10: S=0.66990, F=0.66992, vol=7.97%, T=0.2329y
+2026-01-15 11:34:49,170 - src.core.pricing_engine - INFO -   Trade price: 0.015542 (1.5542%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:34:49,170 - src.core.pricing_engine - INFO -   QuantLib price: 0.016566 (1.6566%), delta=-0.5168, vega=0.001289
+2026-01-15 11:34:49,171 - src.core.pricing_engine - INFO -   Forward delta: -0.5167, gamma_1pct: 0.091209, vega_usd: -15,463, vega_eur: -13,284
+2026-01-15 11:34:49,171 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:34:49,172 - src.core.pricing_engine - INFO -   Final values - current_price: 0.016566, delta_notional: 6,200,974, gamma_1pct: -1,094,505, vega_eur: -13,284, pnl: -10,558 EUR
+2026-01-15 11:34:49,172 - src.core.pricing_engine - INFO - Pricing AUDNZD Put K=1.16150 exp=2026-04-10: S=1.16480, F=1.16110, vol=4.78%, T=0.2329y
+2026-01-15 11:34:49,172 - src.core.pricing_engine - INFO -   Trade price: 0.009574 (0.9574%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:34:49,173 - src.core.pricing_engine - INFO -   QuantLib price: 0.009362 (0.9362%), delta=-0.5005, vega=0.002239
+2026-01-15 11:34:49,174 - src.core.pricing_engine - INFO -   Forward delta: -0.5013, gamma_1pct: 0.161295, vega_usd: -16,657, vega_eur: -14,310
+2026-01-15 11:34:49,174 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:34:49,174 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009362, delta_notional: 6,015,647, gamma_1pct: -1,935,536, vega_eur: -14,310, pnl: 2,180 EUR
+2026-01-15 11:34:49,175 - src.core.pricing_engine - INFO - Pricing AUDNZD Call K=1.16150 exp=2026-04-10: S=1.16480, F=1.16110, vol=4.78%, T=0.2329y
+2026-01-15 11:34:49,176 - src.core.pricing_engine - INFO -   Trade price: 0.009676 (0.9676%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:34:49,176 - src.core.pricing_engine - INFO -   QuantLib price: 0.009021 (0.9021%), delta=0.4979, vega=0.002239
+2026-01-15 11:34:49,178 - src.core.pricing_engine - INFO -   Forward delta: 0.4987, gamma_1pct: 0.161295, vega_usd: -16,657, vega_eur: -14,310
+2026-01-15 11:34:49,178 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:34:49,179 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009021, delta_notional: -5,984,353, gamma_1pct: -1,935,536, vega_eur: -14,310, pnl: 6,758 EUR
+2026-01-15 11:34:49,179 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:34:49,421 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16400
+2026-01-15 11:34:49,422 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURNZD (ticker: EURNZD Curncy)
+2026-01-15 11:34:49,661 - src.core.bloomberg_client - INFO - Bloomberg: EURNZD spot rate = 2.02380
+2026-01-15 11:34:49,662 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:34:49,953 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16400
+2026-01-15 11:34:49,955 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURNZD (ticker: EURNZD Curncy)
+2026-01-15 11:34:50,249 - src.core.bloomberg_client - INFO - Bloomberg: EURNZD spot rate = 2.02380
+2026-01-15 11:34:50,250 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:34:50,516 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93163
+2026-01-15 11:34:50,516 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURJPY (ticker: EURJPY Curncy)
+2026-01-15 11:34:50,965 - src.core.bloomberg_client - INFO - Bloomberg: EURJPY spot rate = 184.42000
+2026-01-15 11:34:50,965 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURJPY (ticker: EURJPY Curncy)
+2026-01-15 11:34:51,295 - src.core.bloomberg_client - INFO - Bloomberg: EURJPY spot rate = 184.42000
+2026-01-15 11:34:51,296 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:34:51,528 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93163
+2026-01-15 11:37:54,681 - src.core.bloomberg_client - INFO - Bloomberg: Disconnecting from API...
+2026-01-15 11:37:54,684 - src.core.bloomberg_client - INFO - Bloomberg: Disconnected successfully
+2026-01-15 11:38:25,973 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-15 11:38:26,112 - src.core.bloomberg_client - INFO - Bloomberg: Attempting connection to localhost:8194
+2026-01-15 11:38:26,355 - src.core.bloomberg_client - INFO - Bloomberg: Successfully connected to Bloomberg API
+2026-01-15 11:38:26,356 - src.core.market_data_provider - INFO - Bloomberg API connected successfully
+2026-01-15 11:38:26,822 - __main__ - INFO - Application started successfully
+2026-01-15 11:38:26,830 - src.core.portfolio_manager - INFO - Loaded 16 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-15 11:38:26,834 - src.core.forward_manager - INFO - Loaded 8 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-15 11:38:26,834 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURGBP (ticker: EURGBP Curncy)
+2026-01-15 11:38:27,089 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP spot rate = 0.86669
+2026-01-15 11:38:27,090 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURGBP (14 tenors)
+2026-01-15 11:38:27,841 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURGBP
+2026-01-15 11:38:27,842 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURGBP (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:28,482 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURGBP (0 errors)
+2026-01-15 11:38:28,483 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP ATM vols: 1M=3.67%, 1W=3.27%, 1Y=5.05%, 2M=3.87%, 2W=3.38%, 3M=4.11%, 6M=4.60%, 9M=4.89%
+2026-01-15 11:38:28,486 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1M smile - ATM=3.67%, 25RR=0.33, 10RR=0.62, 25BF=0.13, 10BF=0.43
+2026-01-15 11:38:28,487 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.78%, 25P=3.63%, ATM=3.67%, 25C=3.96%, 10C=4.41%
+2026-01-15 11:38:28,488 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 2M smile - ATM=3.87%, 25RR=0.44, 10RR=0.83, 25BF=0.14, 10BF=0.48
+2026-01-15 11:38:28,489 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.93%, 25P=3.79%, ATM=3.87%, 25C=4.23%, 10C=4.76%
+2026-01-15 11:38:28,491 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 3M smile - ATM=4.11%, 25RR=0.53, 10RR=0.99, 25BF=0.16, 10BF=0.52
+2026-01-15 11:38:28,491 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.13%, 25P=4.00%, ATM=4.11%, 25C=4.53%, 10C=5.12%
+2026-01-15 11:38:28,493 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 6M smile - ATM=4.60%, 25RR=0.68, 10RR=1.30, 25BF=0.20, 10BF=0.67
+2026-01-15 11:38:28,494 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.61%, 25P=4.46%, ATM=4.60%, 25C=5.14%, 10C=5.92%
+2026-01-15 11:38:28,495 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 9M smile - ATM=4.89%, 25RR=0.82, 10RR=1.57, 25BF=0.23, 10BF=0.78
+2026-01-15 11:38:28,496 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.89%, 25P=4.72%, ATM=4.89%, 25C=5.54%, 10C=6.46%
+2026-01-15 11:38:28,497 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1Y smile - ATM=5.05%, 25RR=0.91, 10RR=1.73, 25BF=0.25, 10BF=0.85
+2026-01-15 11:38:28,498 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.04%, 25P=4.85%, ATM=5.05%, 25C=5.76%, 10C=6.77%
+2026-01-15 11:38:28,499 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 1W smile - ATM=3.27%, 25RR=0.20, 10RR=0.37, 25BF=0.12, 10BF=0.39
+2026-01-15 11:38:28,500 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.48%, 25P=3.29%, ATM=3.27%, 25C=3.49%, 10C=3.85%
+2026-01-15 11:38:28,503 - src.core.volatility_surface - INFO - VolSurface EURGBP: Added 2W smile - ATM=3.38%, 25RR=0.26, 10RR=0.47, 25BF=0.12, 10BF=0.41
+2026-01-15 11:38:28,504 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.55%, 25P=3.38%, ATM=3.38%, 25C=3.64%, 10C=4.03%
+2026-01-15 11:38:28,505 - src.core.volatility_surface - INFO - VolSurface EURGBP: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:28,505 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:38:28,783 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16370
+2026-01-15 11:38:28,784 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 11:38:29,594 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 11:38:29,595 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:30,203 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 11:38:30,204 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD ATM vols: 1M=5.06%, 1W=4.26%, 1Y=6.38%, 2M=5.26%, 2W=4.82%, 3M=5.48%, 6M=5.84%, 9M=6.16%
+2026-01-15 11:38:30,206 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1M smile - ATM=5.06%, 25RR=0.05, 10RR=0.09, 25BF=0.17, 10BF=0.60
+2026-01-15 11:38:30,206 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.62%, 25P=5.21%, ATM=5.06%, 25C=5.26%, 10C=5.71%
+2026-01-15 11:38:30,208 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 2M smile - ATM=5.26%, 25RR=0.09, 10RR=0.14, 25BF=0.19, 10BF=0.70
+2026-01-15 11:38:30,208 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.89%, 25P=5.41%, ATM=5.26%, 25C=5.50%, 10C=6.03%
+2026-01-15 11:38:30,209 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 9M smile - ATM=6.16%, 25RR=0.17, 10RR=0.33, 25BF=0.28, 10BF=1.04
+2026-01-15 11:38:30,210 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.04%, 25P=6.35%, ATM=6.16%, 25C=6.52%, 10C=7.37%
+2026-01-15 11:38:30,212 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1Y smile - ATM=6.38%, 25RR=0.20, 10RR=0.38, 25BF=0.30, 10BF=1.14
+2026-01-15 11:38:30,212 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.32%, 25P=6.58%, ATM=6.38%, 25C=6.78%, 10C=7.71%
+2026-01-15 11:38:30,214 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 3M smile - ATM=5.48%, 25RR=0.10, 10RR=0.17, 25BF=0.21, 10BF=0.78
+2026-01-15 11:38:30,214 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.17%, 25P=5.65%, ATM=5.48%, 25C=5.75%, 10C=6.34%
+2026-01-15 11:38:30,216 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 6M smile - ATM=5.84%, 25RR=0.14, 10RR=0.25, 25BF=0.25, 10BF=0.93
+2026-01-15 11:38:30,216 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.64%, 25P=6.02%, ATM=5.84%, 25C=6.17%, 10C=6.89%
+2026-01-15 11:38:30,217 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 1W smile - ATM=4.26%, 25RR=0.01, 10RR=0.01, 25BF=0.16, 10BF=0.53
+2026-01-15 11:38:30,218 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.79%, 25P=4.42%, ATM=4.26%, 25C=4.43%, 10C=4.79%
+2026-01-15 11:38:30,219 - src.core.volatility_surface - INFO - VolSurface EURUSD: Added 2W smile - ATM=4.82%, 25RR=0.03, 10RR=0.04, 25BF=0.16, 10BF=0.55
+2026-01-15 11:38:30,219 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.34%, 25P=4.96%, ATM=4.82%, 25C=4.99%, 10C=5.38%
+2026-01-15 11:38:30,219 - src.core.volatility_surface - INFO - VolSurface EURUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:30,220 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDCAD (ticker: USDCAD Curncy)
+2026-01-15 11:38:30,499 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD spot rate = 1.39040
+2026-01-15 11:38:30,500 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDCAD (14 tenors)
+2026-01-15 11:38:31,194 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDCAD
+2026-01-15 11:38:31,195 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDCAD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:32,038 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDCAD (0 errors)
+2026-01-15 11:38:32,039 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD ATM vols: 1M=4.25%, 1W=3.61%, 1Y=5.30%, 2M=4.35%, 2W=4.08%, 3M=4.51%, 6M=4.85%, 9M=5.12%
+2026-01-15 11:38:32,040 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1W smile - ATM=3.61%, 25RR=0.07, 10RR=0.11, 25BF=0.11, 10BF=0.36
+2026-01-15 11:38:32,041 - src.core.volatility_surface - INFO -   -> Smile points: 10P=3.91%, 25P=3.69%, ATM=3.61%, 25C=3.75%, 10C=4.03%
+2026-01-15 11:38:32,042 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 2W smile - ATM=4.08%, 25RR=0.07, 10RR=0.12, 25BF=0.11, 10BF=0.38
+2026-01-15 11:38:32,043 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.40%, 25P=4.16%, ATM=4.08%, 25C=4.23%, 10C=4.52%
+2026-01-15 11:38:32,045 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1M smile - ATM=4.25%, 25RR=0.09, 10RR=0.15, 25BF=0.13, 10BF=0.44
+2026-01-15 11:38:32,046 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.62%, 25P=4.34%, ATM=4.25%, 25C=4.42%, 10C=4.77%
+2026-01-15 11:38:32,047 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 2M smile - ATM=4.35%, 25RR=0.08, 10RR=0.17, 25BF=0.14, 10BF=0.47
+2026-01-15 11:38:32,048 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.74%, 25P=4.45%, ATM=4.35%, 25C=4.53%, 10C=4.90%
+2026-01-15 11:38:32,050 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 9M smile - ATM=5.12%, 25RR=0.05, 10RR=0.12, 25BF=0.19, 10BF=0.72
+2026-01-15 11:38:32,050 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.78%, 25P=5.29%, ATM=5.12%, 25C=5.34%, 10C=5.90%
+2026-01-15 11:38:32,052 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 1Y smile - ATM=5.30%, 25RR=0.05, 10RR=0.12, 25BF=0.23, 10BF=0.85
+2026-01-15 11:38:32,052 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.09%, 25P=5.51%, ATM=5.30%, 25C=5.55%, 10C=6.21%
+2026-01-15 11:38:32,053 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 3M smile - ATM=4.51%, 25RR=0.09, 10RR=0.17, 25BF=0.15, 10BF=0.53
+2026-01-15 11:38:32,053 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.96%, 25P=4.62%, ATM=4.51%, 25C=4.70%, 10C=5.12%
+2026-01-15 11:38:32,054 - src.core.volatility_surface - INFO - VolSurface USDCAD: Added 6M smile - ATM=4.85%, 25RR=0.07, 10RR=0.14, 25BF=0.17, 10BF=0.64
+2026-01-15 11:38:32,054 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.42%, 25P=4.99%, ATM=4.85%, 25C=5.05%, 10C=5.56%
+2026-01-15 11:38:32,054 - src.core.volatility_surface - INFO - VolSurface USDCAD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:32,055 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDNZD (ticker: AUDNZD Curncy)
+2026-01-15 11:38:32,291 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD spot rate = 1.16490
+2026-01-15 11:38:32,292 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDNZD (14 tenors)
+2026-01-15 11:38:33,022 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDNZD
+2026-01-15 11:38:33,022 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDNZD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:33,822 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDNZD (0 errors)
+2026-01-15 11:38:33,822 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD ATM vols: 1M=4.80%, 1W=4.26%, 1Y=4.95%, 2M=4.74%, 2W=4.61%, 3M=4.79%, 6M=4.89%, 9M=4.92%
+2026-01-15 11:38:33,824 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 3M smile - ATM=4.79%, 25RR=0.07, 10RR=0.12, 25BF=0.08, 10BF=0.26
+2026-01-15 11:38:33,824 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.99%, 25P=4.84%, ATM=4.79%, 25C=4.91%, 10C=5.12%
+2026-01-15 11:38:33,827 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 6M smile - ATM=4.89%, 25RR=0.07, 10RR=0.11, 25BF=0.10, 10BF=0.32
+2026-01-15 11:38:33,828 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.15%, 25P=4.95%, ATM=4.89%, 25C=5.02%, 10C=5.26%
+2026-01-15 11:38:33,829 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1M smile - ATM=4.80%, 25RR=0.10, 10RR=0.17, 25BF=0.07, 10BF=0.21
+2026-01-15 11:38:33,830 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.93%, 25P=4.82%, ATM=4.80%, 25C=4.93%, 10C=5.10%
+2026-01-15 11:38:33,831 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 2M smile - ATM=4.74%, 25RR=0.09, 10RR=0.15, 25BF=0.07, 10BF=0.23
+2026-01-15 11:38:33,831 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.89%, 25P=4.77%, ATM=4.74%, 25C=4.85%, 10C=5.04%
+2026-01-15 11:38:33,833 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1W smile - ATM=4.26%, 25RR=0.09, 10RR=0.11, 25BF=0.05, 10BF=0.14
+2026-01-15 11:38:33,833 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.35%, 25P=4.27%, ATM=4.26%, 25C=4.36%, 10C=4.46%
+2026-01-15 11:38:33,834 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 2W smile - ATM=4.61%, 25RR=0.09, 10RR=0.12, 25BF=0.05, 10BF=0.15
+2026-01-15 11:38:33,834 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.70%, 25P=4.62%, ATM=4.61%, 25C=4.70%, 10C=4.82%
+2026-01-15 11:38:33,836 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 9M smile - ATM=4.92%, 25RR=0.06, 10RR=0.10, 25BF=0.11, 10BF=0.34
+2026-01-15 11:38:33,836 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.21%, 25P=4.99%, ATM=4.92%, 25C=5.05%, 10C=5.30%
+2026-01-15 11:38:33,837 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Added 1Y smile - ATM=4.95%, 25RR=0.06, 10RR=0.10, 25BF=0.12, 10BF=0.38
+2026-01-15 11:38:33,838 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.28%, 25P=5.03%, ATM=4.95%, 25C=5.09%, 10C=5.37%
+2026-01-15 11:38:33,838 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:33,838 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDJPY (ticker: USDJPY Curncy)
+2026-01-15 11:38:34,082 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY spot rate = 158.43000
+2026-01-15 11:38:34,083 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDJPY (14 tenors)
+2026-01-15 11:38:34,790 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDJPY
+2026-01-15 11:38:34,791 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDJPY (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:35,472 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDJPY (0 errors)
+2026-01-15 11:38:35,472 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY ATM vols: 1M=8.73%, 1W=7.23%, 1Y=9.34%, 2M=8.78%, 2W=8.28%, 3M=8.95%, 6M=9.18%, 9M=9.31%
+2026-01-15 11:38:35,474 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 3M smile - ATM=8.95%, 25RR=-0.53, 10RR=-0.99, 25BF=0.32, 10BF=1.15
+2026-01-15 11:38:35,474 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.59%, 25P=9.53%, ATM=8.95%, 25C=9.00%, 10C=9.59%
+2026-01-15 11:38:35,475 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 6M smile - ATM=9.18%, 25RR=-0.43, 10RR=-0.81, 25BF=0.34, 10BF=1.20
+2026-01-15 11:38:35,476 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.79%, 25P=9.73%, ATM=9.18%, 25C=9.30%, 10C=9.97%
+2026-01-15 11:38:35,477 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1M smile - ATM=8.73%, 25RR=-0.57, 10RR=-1.06, 25BF=0.30, 10BF=1.02
+2026-01-15 11:38:35,478 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.29%, 25P=9.32%, ATM=8.73%, 25C=8.76%, 10C=9.23%
+2026-01-15 11:38:35,479 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 2M smile - ATM=8.78%, 25RR=-0.56, 10RR=-1.07, 25BF=0.32, 10BF=1.08
+2026-01-15 11:38:35,480 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.39%, 25P=9.37%, ATM=8.78%, 25C=8.81%, 10C=9.32%
+2026-01-15 11:38:35,481 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 9M smile - ATM=9.31%, 25RR=-0.34, 10RR=-0.65, 25BF=0.35, 10BF=1.26
+2026-01-15 11:38:35,482 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.90%, 25P=9.83%, ATM=9.31%, 25C=9.49%, 10C=10.25%
+2026-01-15 11:38:35,483 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1Y smile - ATM=9.34%, 25RR=-0.28, 10RR=-0.55, 25BF=0.37, 10BF=1.32
+2026-01-15 11:38:35,483 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.93%, 25P=9.85%, ATM=9.34%, 25C=9.57%, 10C=10.38%
+2026-01-15 11:38:35,484 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 1W smile - ATM=7.23%, 25RR=-0.70, 10RR=-1.31, 25BF=0.32, 10BF=1.05
+2026-01-15 11:38:35,484 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.94%, 25P=7.90%, ATM=7.23%, 25C=7.20%, 10C=7.63%
+2026-01-15 11:38:35,485 - src.core.volatility_surface - INFO - VolSurface USDJPY: Added 2W smile - ATM=8.28%, 25RR=-0.67, 10RR=-1.24, 25BF=0.31, 10BF=1.04
+2026-01-15 11:38:35,485 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.94%, 25P=8.92%, ATM=8.28%, 25C=8.25%, 10C=8.70%
+2026-01-15 11:38:35,486 - src.core.volatility_surface - INFO - VolSurface USDJPY: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:35,486 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for GBPUSD (ticker: GBPUSD Curncy)
+2026-01-15 11:38:35,759 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD spot rate = 1.34270
+2026-01-15 11:38:35,759 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for GBPUSD (14 tenors)
+2026-01-15 11:38:36,351 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for GBPUSD
+2026-01-15 11:38:36,352 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for GBPUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:37,119 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for GBPUSD (0 errors)
+2026-01-15 11:38:37,120 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD ATM vols: 1M=5.75%, 1W=5.01%, 1Y=7.50%, 2M=6.03%, 2W=5.47%, 3M=6.29%, 6M=6.88%, 9M=7.29%
+2026-01-15 11:38:37,121 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1W smile - ATM=5.01%, 25RR=-0.23, 10RR=-0.42, 25BF=0.13, 10BF=0.42
+2026-01-15 11:38:37,121 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.65%, 25P=5.26%, ATM=5.01%, 25C=5.03%, 10C=5.23%
+2026-01-15 11:38:37,122 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 2W smile - ATM=5.47%, 25RR=-0.26, 10RR=-0.47, 25BF=0.13, 10BF=0.45
+2026-01-15 11:38:37,122 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.15%, 25P=5.73%, ATM=5.47%, 25C=5.47%, 10C=5.68%
+2026-01-15 11:38:37,122 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 9M smile - ATM=7.29%, 25RR=-0.62, 10RR=-1.23, 25BF=0.28, 10BF=0.98
+2026-01-15 11:38:37,123 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.89%, 25P=7.88%, ATM=7.29%, 25C=7.26%, 10C=7.66%
+2026-01-15 11:38:37,123 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1Y smile - ATM=7.50%, 25RR=-0.69, 10RR=-1.39, 25BF=0.30, 10BF=1.08
+2026-01-15 11:38:37,123 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.28%, 25P=8.15%, ATM=7.50%, 25C=7.46%, 10C=7.89%
+2026-01-15 11:38:37,124 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 1M smile - ATM=5.75%, 25RR=-0.29, 10RR=-0.54, 25BF=0.15, 10BF=0.52
+2026-01-15 11:38:37,124 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.53%, 25P=6.04%, ATM=5.75%, 25C=5.75%, 10C=6.00%
+2026-01-15 11:38:37,124 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 2M smile - ATM=6.03%, 25RR=-0.34, 10RR=-0.65, 25BF=0.18, 10BF=0.61
+2026-01-15 11:38:37,124 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.96%, 25P=6.38%, ATM=6.03%, 25C=6.04%, 10C=6.31%
+2026-01-15 11:38:37,125 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 3M smile - ATM=6.29%, 25RR=-0.39, 10RR=-0.74, 25BF=0.20, 10BF=0.68
+2026-01-15 11:38:37,125 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.34%, 25P=6.68%, ATM=6.29%, 25C=6.29%, 10C=6.59%
+2026-01-15 11:38:37,126 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Added 6M smile - ATM=6.88%, 25RR=-0.53, 10RR=-1.02, 25BF=0.24, 10BF=0.85
+2026-01-15 11:38:37,127 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.24%, 25P=7.38%, ATM=6.88%, 25C=6.86%, 10C=7.22%
+2026-01-15 11:38:37,127 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:37,127 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:38:37,439 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93159
+2026-01-15 11:38:37,440 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURCHF (14 tenors)
+2026-01-15 11:38:38,144 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURCHF
+2026-01-15 11:38:38,145 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURCHF (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:38,983 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURCHF (0 errors)
+2026-01-15 11:38:38,984 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF ATM vols: 1M=3.67%, 1W=3.53%, 1Y=5.01%, 2M=3.83%, 2W=3.50%, 3M=4.05%, 6M=4.51%, 9M=4.84%
+2026-01-15 11:38:38,985 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1W smile - ATM=3.53%, 25RR=-0.44, 10RR=-0.82, 25BF=0.15, 10BF=0.51
+2026-01-15 11:38:38,986 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.44%, 25P=3.90%, ATM=3.53%, 25C=3.46%, 10C=3.62%
+2026-01-15 11:38:38,987 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 2W smile - ATM=3.50%, 25RR=-0.44, 10RR=-0.82, 25BF=0.16, 10BF=0.52
+2026-01-15 11:38:38,988 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.43%, 25P=3.88%, ATM=3.50%, 25C=3.44%, 10C=3.61%
+2026-01-15 11:38:38,989 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 9M smile - ATM=4.84%, 25RR=-0.72, 10RR=-1.39, 25BF=0.28, 10BF=0.90
+2026-01-15 11:38:38,990 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.44%, 25P=5.48%, ATM=4.84%, 25C=4.76%, 10C=5.05%
+2026-01-15 11:38:38,992 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1Y smile - ATM=5.01%, 25RR=-0.80, 10RR=-1.54, 25BF=0.28, 10BF=0.96
+2026-01-15 11:38:38,993 - src.core.volatility_surface - INFO -   -> Smile points: 10P=6.74%, 25P=5.69%, ATM=5.01%, 25C=4.89%, 10C=5.20%
+2026-01-15 11:38:38,994 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 1M smile - ATM=3.67%, 25RR=-0.47, 10RR=-0.90, 25BF=0.17, 10BF=0.59
+2026-01-15 11:38:38,995 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.71%, 25P=4.08%, ATM=3.67%, 25C=3.62%, 10C=3.82%
+2026-01-15 11:38:38,996 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 2M smile - ATM=3.83%, 25RR=-0.54, 10RR=-1.01, 25BF=0.15, 10BF=0.64
+2026-01-15 11:38:38,997 - src.core.volatility_surface - INFO -   -> Smile points: 10P=4.97%, 25P=4.25%, ATM=3.83%, 25C=3.71%, 10C=3.95%
+2026-01-15 11:38:38,998 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 3M smile - ATM=4.05%, 25RR=-0.59, 10RR=-1.11, 25BF=0.22, 10BF=0.74
+2026-01-15 11:38:38,999 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.36%, 25P=4.57%, ATM=4.05%, 25C=3.98%, 10C=4.24%
+2026-01-15 11:38:39,000 - src.core.volatility_surface - INFO - VolSurface EURCHF: Added 6M smile - ATM=4.51%, 25RR=-0.66, 10RR=-1.25, 25BF=0.24, 10BF=0.83
+2026-01-15 11:38:39,001 - src.core.volatility_surface - INFO -   -> Smile points: 10P=5.98%, 25P=5.08%, ATM=4.51%, 25C=4.43%, 10C=4.72%
+2026-01-15 11:38:39,001 - src.core.volatility_surface - INFO - VolSurface EURCHF: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:39,002 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDUSD (ticker: AUDUSD Curncy)
+2026-01-15 11:38:39,244 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD spot rate = 0.66990
+2026-01-15 11:38:39,245 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDUSD (14 tenors)
+2026-01-15 11:38:40,104 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDUSD
+2026-01-15 11:38:40,106 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 11:38:40,911 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDUSD (0 errors)
+2026-01-15 11:38:40,911 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD ATM vols: 1M=7.43%, 1W=6.60%, 1Y=9.16%, 2M=7.75%, 2W=7.20%, 3M=8.03%, 6M=8.56%, 9M=8.95%
+2026-01-15 11:38:40,913 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 9M smile - ATM=8.95%, 25RR=-0.86, 10RR=-1.82, 25BF=0.33, 10BF=1.08
+2026-01-15 11:38:40,913 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.95%, 25P=9.71%, ATM=8.95%, 25C=8.85%, 10C=9.12%
+2026-01-15 11:38:40,914 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1Y smile - ATM=9.16%, 25RR=-0.96, 10RR=-2.00, 25BF=0.35, 10BF=1.19
+2026-01-15 11:38:40,915 - src.core.volatility_surface - INFO -   -> Smile points: 10P=11.34%, 25P=10.00%, ATM=9.16%, 25C=9.03%, 10C=9.35%
+2026-01-15 11:38:40,916 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1W smile - ATM=6.60%, 25RR=-0.52, 10RR=-0.96, 25BF=0.18, 10BF=0.59
+2026-01-15 11:38:40,916 - src.core.volatility_surface - INFO -   -> Smile points: 10P=7.67%, 25P=7.04%, ATM=6.60%, 25C=6.52%, 10C=6.71%
+2026-01-15 11:38:40,916 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 2W smile - ATM=7.20%, 25RR=-0.54, 10RR=-0.99, 25BF=0.19, 10BF=0.65
+2026-01-15 11:38:40,917 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.34%, 25P=7.66%, ATM=7.20%, 25C=7.13%, 10C=7.35%
+2026-01-15 11:38:40,917 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 3M smile - ATM=8.03%, 25RR=-0.73, 10RR=-1.53, 25BF=0.26, 10BF=0.85
+2026-01-15 11:38:40,917 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.65%, 25P=8.66%, ATM=8.03%, 25C=7.92%, 10C=8.12%
+2026-01-15 11:38:40,918 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 6M smile - ATM=8.56%, 25RR=-0.80, 10RR=-1.69, 25BF=0.29, 10BF=0.97
+2026-01-15 11:38:40,918 - src.core.volatility_surface - INFO -   -> Smile points: 10P=10.38%, 25P=9.26%, ATM=8.56%, 25C=8.46%, 10C=8.69%
+2026-01-15 11:38:40,919 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 1M smile - ATM=7.43%, 25RR=-0.59, 10RR=-1.19, 25BF=0.22, 10BF=0.69
+2026-01-15 11:38:40,919 - src.core.volatility_surface - INFO -   -> Smile points: 10P=8.71%, 25P=7.95%, ATM=7.43%, 25C=7.36%, 10C=7.53%
+2026-01-15 11:38:40,919 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Added 2M smile - ATM=7.75%, 25RR=-0.65, 10RR=-1.34, 25BF=0.24, 10BF=0.78
+2026-01-15 11:38:40,920 - src.core.volatility_surface - INFO -   -> Smile points: 10P=9.19%, 25P=8.31%, ATM=7.75%, 25C=7.66%, 10C=7.85%
+2026-01-15 11:38:40,920 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 11:38:41,620 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-10: S=1.16370, F=1.16828, vol=5.43%, T=0.2329y
+2026-01-15 11:38:41,621 - src.core.pricing_engine - INFO -   Trade price: 0.010965 (1.0965%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,622 - src.core.pricing_engine - INFO -   QuantLib price: 0.008223 (0.8223%), delta=0.4320, vega=0.002211
+2026-01-15 11:38:41,626 - src.core.pricing_engine - INFO -   Forward delta: 0.4312, gamma_1pct: 0.142815, vega_usd: -15,479, vega_eur: -13,301
+2026-01-15 11:38:41,627 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008223, delta_notional: -3,018,152, gamma_1pct: -999,708, vega_eur: -13,301, pnl: 19,191 EUR
+2026-01-15 11:38:41,630 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-10: S=1.16370, F=1.16828, vol=5.43%, T=0.2329y
+2026-01-15 11:38:41,630 - src.core.pricing_engine - INFO -   Trade price: 0.010821 (1.0821%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,631 - src.core.pricing_engine - INFO -   QuantLib price: 0.013130 (1.3130%), delta=-0.5700, vega=0.002211
+2026-01-15 11:38:41,634 - src.core.pricing_engine - INFO -   Forward delta: -0.5688, gamma_1pct: 0.142815, vega_usd: -15,479, vega_eur: -13,301
+2026-01-15 11:38:41,634 - src.core.pricing_engine - INFO -   Final values - current_price: 0.013130, delta_notional: 3,981,848, gamma_1pct: -999,708, vega_eur: -13,301, pnl: -16,164 EUR
+2026-01-15 11:38:41,636 - src.core.pricing_engine - INFO - Pricing GBPUSD Call K=1.34550 exp=2026-04-10: S=1.34270, F=1.34254, vol=6.23%, T=0.2329y
+2026-01-15 11:38:41,636 - src.core.pricing_engine - INFO -   Trade price: 0.012500 (1.2500%), Direction: Short, Notional: 6,000,000
+2026-01-15 11:38:41,637 - src.core.pricing_engine - INFO -   QuantLib price: 0.010931 (1.0931%), delta=0.4767, vega=0.002580
+2026-01-15 11:38:41,640 - src.core.pricing_engine - INFO -   Forward delta: 0.4767, gamma_1pct: 0.117552, vega_usd: -15,482, vega_eur: -13,304
+2026-01-15 11:38:41,641 - src.core.pricing_engine - INFO -   Final values - current_price: 0.010931, delta_notional: -2,860,382, gamma_1pct: -705,309, vega_eur: -13,304, pnl: 10,864 EUR
+2026-01-15 11:38:41,642 - src.core.pricing_engine - INFO - Pricing GBPUSD Put K=1.34550 exp=2026-04-10: S=1.34270, F=1.34254, vol=6.23%, T=0.2329y
+2026-01-15 11:38:41,642 - src.core.pricing_engine - INFO -   Trade price: 0.012667 (1.2667%), Direction: Short, Notional: 6,000,000
+2026-01-15 11:38:41,643 - src.core.pricing_engine - INFO -   QuantLib price: 0.013139 (1.3139%), delta=-0.5232, vega=0.002580
+2026-01-15 11:38:41,645 - src.core.pricing_engine - INFO -   Forward delta: -0.5233, gamma_1pct: 0.117552, vega_usd: -15,482, vega_eur: -13,304
+2026-01-15 11:38:41,645 - src.core.pricing_engine - INFO -   Final values - current_price: 0.013139, delta_notional: 3,139,618, gamma_1pct: -705,309, vega_eur: -13,304, pnl: -3,268 EUR
+2026-01-15 11:38:41,646 - src.core.pricing_engine - INFO - Pricing USDJPY Call K=156.75000 exp=2026-04-10: S=158.43000, F=157.29623, vol=10.55%, T=0.2329y
+2026-01-15 11:38:41,647 - src.core.pricing_engine - INFO -   Trade price: 0.016487 (1.6487%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:38:41,647 - src.core.pricing_engine - INFO -   QuantLib price: 0.021974 (2.1974%), delta=0.5354, vega=0.302580
+2026-01-15 11:38:41,648 - src.core.pricing_engine - INFO -   Forward delta: 0.5374, gamma_1pct: 0.076451, vega_usd: -15,279, vega_eur: -13,130
+2026-01-15 11:38:41,649 - src.core.pricing_engine - INFO -   Final values - current_price: 0.021974, delta_notional: -4,298,900, gamma_1pct: -611,611, vega_eur: -13,130, pnl: -37,717 EUR
+2026-01-15 11:38:41,650 - src.core.pricing_engine - INFO - Pricing USDJPY Put K=156.75000 exp=2026-04-10: S=158.43000, F=157.29623, vol=10.55%, T=0.2329y
+2026-01-15 11:38:41,650 - src.core.pricing_engine - INFO -   Trade price: 0.016887 (1.6887%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:38:41,651 - src.core.pricing_engine - INFO -   QuantLib price: 0.018514 (1.8514%), delta=-0.4610, vega=0.302580
+2026-01-15 11:38:41,653 - src.core.pricing_engine - INFO -   Forward delta: -0.4626, gamma_1pct: 0.076451, vega_usd: -15,279, vega_eur: -13,130
+2026-01-15 11:38:41,653 - src.core.pricing_engine - INFO -   Final values - current_price: 0.018514, delta_notional: 3,701,100, gamma_1pct: -611,611, vega_eur: -13,130, pnl: -11,180 EUR
+2026-01-15 11:38:41,654 - src.core.pricing_engine - INFO - Pricing EURGBP Call K=0.87120 exp=2026-04-10: S=0.86669, F=0.87021, vol=4.06%, T=0.2329y
+2026-01-15 11:38:41,655 - src.core.pricing_engine - INFO -   Trade price: 0.008071 (0.8071%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,656 - src.core.pricing_engine - INFO -   QuantLib price: 0.007275 (0.7275%), delta=0.4816, vega=0.001670
+2026-01-15 11:38:41,659 - src.core.pricing_engine - INFO -   Forward delta: 0.4807, gamma_1pct: 0.195321, vega_usd: -15,696, vega_eur: -13,488
+2026-01-15 11:38:41,659 - src.core.pricing_engine - INFO -   Final values - current_price: 0.007275, delta_notional: -3,364,641, gamma_1pct: -1,367,249, vega_eur: -13,488, pnl: 5,573 EUR
+2026-01-15 11:38:41,660 - src.core.pricing_engine - INFO - Pricing EURGBP Put K=0.87120 exp=2026-04-10: S=0.86669, F=0.87021, vol=4.06%, T=0.2329y
+2026-01-15 11:38:41,661 - src.core.pricing_engine - INFO -   Trade price: 0.008071 (0.8071%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,662 - src.core.pricing_engine - INFO -   QuantLib price: 0.008420 (0.8420%), delta=-0.5204, vega=0.001670
+2026-01-15 11:38:41,664 - src.core.pricing_engine - INFO -   Forward delta: -0.5193, gamma_1pct: 0.195321, vega_usd: -15,696, vega_eur: -13,488
+2026-01-15 11:38:41,664 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008420, delta_notional: 3,635,359, gamma_1pct: -1,367,249, vega_eur: -13,488, pnl: -2,439 EUR
+2026-01-15 11:38:41,665 - src.core.pricing_engine - INFO - Pricing EURCHF Call K=0.92650 exp=2026-04-10: S=0.93159, F=0.92698, vol=5.28%, T=0.2329y
+2026-01-15 11:38:41,665 - src.core.pricing_engine - INFO -   Trade price: 0.008000 (0.8000%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,666 - src.core.pricing_engine - INFO -   QuantLib price: 0.010391 (1.0391%), delta=0.5119, vega=0.001788
+2026-01-15 11:38:41,667 - src.core.pricing_engine - INFO -   Forward delta: 0.5131, gamma_1pct: 0.150951, vega_usd: -13,907, vega_eur: -11,951
+2026-01-15 11:38:41,668 - src.core.pricing_engine - INFO -   Final values - current_price: 0.010391, delta_notional: -3,592,000, gamma_1pct: -1,056,659, vega_eur: -11,951, pnl: -16,734 EUR
+2026-01-15 11:38:41,669 - src.core.pricing_engine - INFO - Pricing EURCHF Put K=0.92650 exp=2026-04-10: S=0.93159, F=0.92698, vol=5.28%, T=0.2329y
+2026-01-15 11:38:41,669 - src.core.pricing_engine - INFO -   Trade price: 0.008000 (0.8000%), Direction: Short, Notional: 7,000,000
+2026-01-15 11:38:41,669 - src.core.pricing_engine - INFO -   QuantLib price: 0.009877 (0.9877%), delta=-0.4857, vega=0.001788
+2026-01-15 11:38:41,670 - src.core.pricing_engine - INFO -   Forward delta: -0.4869, gamma_1pct: 0.150951, vega_usd: -13,907, vega_eur: -11,951
+2026-01-15 11:38:41,671 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009877, delta_notional: 3,408,000, gamma_1pct: -1,056,659, vega_eur: -11,951, pnl: -13,140 EUR
+2026-01-15 11:38:41,672 - src.core.pricing_engine - INFO - Pricing USDCAD Call K=1.38300 exp=2026-04-10: S=1.39040, F=1.38546, vol=4.91%, T=0.2329y
+2026-01-15 11:38:41,672 - src.core.pricing_engine - INFO -   Trade price: 0.008956 (0.8956%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:38:41,673 - src.core.pricing_engine - INFO -   QuantLib price: 0.010341 (1.0341%), delta=0.5336, vega=0.002662
+2026-01-15 11:38:41,674 - src.core.pricing_engine - INFO -   Forward delta: 0.5346, gamma_1pct: 0.159222, vega_usd: -15,316, vega_eur: -13,162
+2026-01-15 11:38:41,674 - src.core.pricing_engine - INFO -   Final values - current_price: 0.010341, delta_notional: -4,276,790, gamma_1pct: -1,273,778, vega_eur: -13,162, pnl: -9,523 EUR
+2026-01-15 11:38:41,675 - src.core.pricing_engine - INFO - Pricing USDCAD Put K=1.38300 exp=2026-04-10: S=1.39040, F=1.38546, vol=4.91%, T=0.2329y
+2026-01-15 11:38:41,675 - src.core.pricing_engine - INFO -   Trade price: 0.008956 (0.8956%), Direction: Short, Notional: 8,000,000
+2026-01-15 11:38:41,676 - src.core.pricing_engine - INFO -   QuantLib price: 0.008569 (0.8569%), delta=-0.4646, vega=0.002662
+2026-01-15 11:38:41,678 - src.core.pricing_engine - INFO -   Forward delta: -0.4654, gamma_1pct: 0.159222, vega_usd: -15,316, vega_eur: -13,162
+2026-01-15 11:38:41,678 - src.core.pricing_engine - INFO -   Final values - current_price: 0.008569, delta_notional: 3,723,210, gamma_1pct: -1,273,778, vega_eur: -13,162, pnl: 2,661 EUR
+2026-01-15 11:38:41,679 - src.core.pricing_engine - INFO - Pricing AUDUSD Call K=0.67150 exp=2026-04-10: S=0.66990, F=0.66992, vol=7.97%, T=0.2329y
+2026-01-15 11:38:41,679 - src.core.pricing_engine - INFO -   Trade price: 0.015542 (1.5542%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:38:41,680 - src.core.pricing_engine - INFO -   QuantLib price: 0.014209 (1.4209%), delta=0.4833, vega=0.001289
+2026-01-15 11:38:41,681 - src.core.pricing_engine - INFO -   Forward delta: 0.4833, gamma_1pct: 0.091210, vega_usd: -15,463, vega_eur: -13,288
+2026-01-15 11:38:41,681 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:38:41,681 - src.core.pricing_engine - INFO -   Final values - current_price: 0.014209, delta_notional: -5,799,172, gamma_1pct: -1,094,516, vega_eur: -13,288, pnl: 13,739 EUR
+2026-01-15 11:38:41,682 - src.core.pricing_engine - INFO - Pricing AUDUSD Put K=0.67150 exp=2026-04-10: S=0.66990, F=0.66992, vol=7.97%, T=0.2329y
+2026-01-15 11:38:41,682 - src.core.pricing_engine - INFO -   Trade price: 0.015542 (1.5542%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:38:41,682 - src.core.pricing_engine - INFO -   QuantLib price: 0.016565 (1.6565%), delta=-0.5167, vega=0.001289
+2026-01-15 11:38:41,683 - src.core.pricing_engine - INFO -   Forward delta: -0.5167, gamma_1pct: 0.091210, vega_usd: -15,463, vega_eur: -13,288
+2026-01-15 11:38:41,683 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:38:41,684 - src.core.pricing_engine - INFO -   Final values - current_price: 0.016565, delta_notional: 6,200,828, gamma_1pct: -1,094,516, vega_eur: -13,288, pnl: -10,554 EUR
+2026-01-15 11:38:41,684 - src.core.pricing_engine - INFO - Pricing AUDNZD Put K=1.16150 exp=2026-04-10: S=1.16490, F=1.16120, vol=4.78%, T=0.2329y
+2026-01-15 11:38:41,684 - src.core.pricing_engine - INFO -   Trade price: 0.009574 (0.9574%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:38:41,685 - src.core.pricing_engine - INFO -   QuantLib price: 0.009318 (0.9318%), delta=-0.4990, vega=0.002239
+2026-01-15 11:38:41,686 - src.core.pricing_engine - INFO -   Forward delta: -0.4998, gamma_1pct: 0.161118, vega_usd: -16,659, vega_eur: -14,315
+2026-01-15 11:38:41,686 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:38:41,686 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009318, delta_notional: 5,997,635, gamma_1pct: -1,933,418, vega_eur: -14,315, pnl: 2,637 EUR
+2026-01-15 11:38:41,687 - src.core.pricing_engine - INFO - Pricing AUDNZD Call K=1.16150 exp=2026-04-10: S=1.16490, F=1.16120, vol=4.78%, T=0.2329y
+2026-01-15 11:38:41,688 - src.core.pricing_engine - INFO -   Trade price: 0.009676 (0.9676%), Direction: Short, Notional: 12,000,000
+2026-01-15 11:38:41,688 - src.core.pricing_engine - INFO -   QuantLib price: 0.009063 (0.9063%), delta=0.4994, vega=0.002239
+2026-01-15 11:38:41,690 - src.core.pricing_engine - INFO -   Forward delta: 0.5002, gamma_1pct: 0.161118, vega_usd: -16,659, vega_eur: -14,315
+2026-01-15 11:38:41,690 - src.core.pricing_engine - WARNING - No rate for EURAUD, using EURUSD fallback
+2026-01-15 11:38:41,690 - src.core.pricing_engine - INFO -   Final values - current_price: 0.009063, delta_notional: -6,002,365, gamma_1pct: -1,933,418, vega_eur: -14,315, pnl: 6,322 EUR
+2026-01-15 11:38:41,691 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:38:41,929 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16370
+2026-01-15 11:38:41,930 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURNZD (ticker: EURNZD Curncy)
+2026-01-15 11:38:42,178 - src.core.bloomberg_client - INFO - Bloomberg: EURNZD spot rate = 2.02370
+2026-01-15 11:38:42,179 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 11:38:42,470 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16370
+2026-01-15 11:38:42,471 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURNZD (ticker: EURNZD Curncy)
+2026-01-15 11:38:42,727 - src.core.bloomberg_client - INFO - Bloomberg: EURNZD spot rate = 2.02360
+2026-01-15 11:38:42,728 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:38:43,027 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93159
+2026-01-15 11:38:43,028 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURJPY (ticker: EURJPY Curncy)
+2026-01-15 11:38:43,317 - src.core.bloomberg_client - INFO - Bloomberg: EURJPY spot rate = 184.36000
+2026-01-15 11:38:43,317 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURJPY (ticker: EURJPY Curncy)
+2026-01-15 11:38:43,612 - src.core.bloomberg_client - INFO - Bloomberg: EURJPY spot rate = 184.36000
+2026-01-15 11:38:43,613 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 11:38:43,861 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93159
+2026-01-15 11:39:16,694 - src.core.bloomberg_client - INFO - Bloomberg: Disconnecting from API...
+2026-01-15 11:39:16,696 - src.core.bloomberg_client - INFO - Bloomberg: Disconnected successfully
