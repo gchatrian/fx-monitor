@@ -107,20 +107,34 @@ class VolatilitySmile:
         Returns:
             Interpolated volatility in %
         """
-        # Clamp delta to reasonable range
-        delta = max(-0.95, min(0.95, delta))
+        original_delta = delta
+
+        # Clamp delta to the range of the smile data
+        # Our smile has deltas: [-0.10, -0.25, 0.50, 0.25, 0.10]
+        # For puts (negative delta): clamp to [-0.10, 0] - use 10P for ITM puts
+        # For calls (positive delta): clamp to [0, 0.50] - use ATM for ITM calls
+        if delta < -0.10:
+            # ITM put - use 10 delta put vol (most OTM put we have)
+            delta = -0.10
+        elif delta > 0.50:
+            # ITM call - use ATM vol
+            delta = 0.50
 
         # Handle near-zero delta (deep OTM)
         if abs(delta) < 0.05:
             # Extrapolate using the wing
             if delta >= 0:
-                return float(self._interp(0.10))
+                delta = 0.10
             else:
-                return float(self._interp(-0.10))
+                delta = -0.10
 
         result = float(self._interp(delta))
-        logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({delta:.4f}) = {result:.2f}% "
-                    f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
+        if abs(original_delta - delta) > 0.01:
+            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({original_delta:.4f}) clamped to {delta:.4f} = {result:.2f}% "
+                        f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
+        else:
+            logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({delta:.4f}) = {result:.2f}% "
+                        f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
         return result
 
     def get_vol_for_strike(self, strike: float) -> float:
@@ -332,11 +346,15 @@ class VolatilitySurface:
         """
         Get volatility for a specific strike and expiry.
 
+        Uses sticky-strike convention: for the same strike, call and put get
+        the same volatility. The delta used for interpolation is always the
+        OTM option delta (call delta for strike > forward, put delta for strike < forward).
+
         Args:
             time_to_expiry: Time to expiry in years
             strike: Strike price
             forward: Forward rate for this expiry
-            is_call: True for call option, False for put option
+            is_call: True for call option, False for put option (not used in sticky-strike)
 
         Returns:
             Interpolated volatility in %
@@ -356,13 +374,22 @@ class VolatilitySurface:
         log_moneyness = math.log(forward / strike)
         d1 = (log_moneyness + 0.5 * vol_decimal * vol_decimal * time_to_expiry) / (vol_decimal * sqrt_t)
 
-        # Calculate delta based on option type
-        # For calls: delta = N(d1), positive (0 to 1)
-        # For puts: delta = N(d1) - 1, negative (-1 to 0)
-        if is_call:
-            delta = norm.cdf(d1)  # Call delta: positive
+        # For sticky-strike, we use the OTM option's delta for interpolation
+        # This ensures call and put at the same strike get the same vol
+        # - If strike > forward: OTM call, use call delta (positive)
+        # - If strike < forward: OTM put, use put delta (negative)
+        # - If strike = forward: ATM, use 0.5
+        call_delta = norm.cdf(d1)
+
+        if strike > forward:
+            # OTM call / ITM put: use call delta (positive)
+            delta = call_delta
+        elif strike < forward:
+            # ITM call / OTM put: use put delta (negative)
+            delta = call_delta - 1
         else:
-            delta = norm.cdf(d1) - 1  # Put delta: negative
+            # ATM
+            delta = 0.5
 
         # Now get vol for this delta
         final_vol = self.get_vol(time_to_expiry, delta)
