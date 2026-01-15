@@ -321,8 +321,8 @@ class FXOptionPricer:
         """
         Calculate vega in USD and EUR terms.
 
-        Vega is the change in option value (in base currency) for 1% vol change.
-        Conversion to EUR uses direct EUR crosses.
+        QuantLib's vega for FX options is in quote currency (e.g., USD for EURUSD).
+        We convert to EUR using the appropriate cross rate.
 
         Args:
             option: FXOption object
@@ -342,45 +342,66 @@ class FXOptionPricer:
             base_ccy = cross[:3]
             quote_ccy = cross[3:]
 
-            # greeks.vega is in % terms (vega per unit notional as % of notional)
-            # To get vega in base currency: vega_pct * notional
-            # This gives the change in premium (in base currency) for 1% vol move
-            vega_base = greeks.vega * abs(notional)
+            # greeks.vega from QuantLib is per unit notional in quote currency
+            # (e.g., for EURUSD, vega is in USD per 1 EUR notional)
+            # To get total vega in quote currency: vega * notional
+            vega_quote = greeks.vega * abs(notional)
 
             logger.debug(f"Vega calc for {cross}: greeks.vega={greeks.vega:.6f}, "
-                        f"notional={notional:,.0f}, vega_base={vega_base:,.0f} {base_ccy}")
+                        f"notional={notional:,.0f}, vega_quote={vega_quote:,.0f} {quote_ccy}")
 
             # Get EURUSD for conversions
             eurusd = 1.08  # Default
             if market_data and 'EURUSD' in market_data:
                 eurusd = market_data['EURUSD'].spot
 
-            # Convert vega to EUR using direct EUR cross
-            if base_ccy == 'EUR':
-                vega_eur = vega_base
-                vega_usd = vega_base * eurusd
+            # Convert vega from quote currency to EUR and USD
+            if quote_ccy == 'USD':
+                # Vega is already in USD
+                vega_usd = vega_quote
+                vega_eur = vega_quote / eurusd
+            elif quote_ccy == 'EUR':
+                # Vega is already in EUR (rare case like USDEUR)
+                vega_eur = vega_quote
+                vega_usd = vega_quote * eurusd
             else:
-                # Get EUR cross for base currency (e.g., EURUSD for USD, EURGBP for GBP)
-                eur_cross = f'EUR{base_ccy}'
-                if market_data and eur_cross in market_data:
-                    eur_rate = market_data[eur_cross].spot
-                    if eur_rate and eur_rate > 0:
-                        # EUR/XXX means 1 EUR = X units of XXX
-                        # To convert XXX to EUR: amount / EUR_XXX_rate
-                        vega_eur = vega_base / eur_rate
-                    else:
-                        vega_eur = vega_base / eurusd
+                # Quote currency is something else (e.g., JPY for USDJPY, GBP for EURGBP)
+                # First convert to USD, then to EUR
+                # Get USD cross for quote currency
+                if quote_ccy == 'JPY':
+                    # USDJPY: 1 USD = X JPY, so JPY to USD = amount / USDJPY
+                    usdjpy = 150.0  # Default
+                    if market_data and 'USDJPY' in market_data:
+                        usdjpy = market_data['USDJPY'].spot
+                    vega_usd = vega_quote / usdjpy
+                elif quote_ccy == 'CAD':
+                    usdcad = 1.35  # Default
+                    if market_data and 'USDCAD' in market_data:
+                        usdcad = market_data['USDCAD'].spot
+                    vega_usd = vega_quote / usdcad
+                elif quote_ccy == 'CHF':
+                    usdchf = 0.90  # Default
+                    if market_data and 'USDCHF' in market_data:
+                        usdchf = market_data['USDCHF'].spot
+                    vega_usd = vega_quote / usdchf
+                elif quote_ccy == 'GBP':
+                    # GBPUSD: 1 GBP = X USD, so GBP to USD = amount * GBPUSD
+                    gbpusd = 1.27  # Default
+                    if market_data and 'GBPUSD' in market_data:
+                        gbpusd = market_data['GBPUSD'].spot
+                    vega_usd = vega_quote * gbpusd
+                elif quote_ccy == 'NZD':
+                    nzdusd = 0.62  # Default
+                    if market_data and 'NZDUSD' in market_data:
+                        nzdusd = market_data['NZDUSD'].spot
+                    vega_usd = vega_quote * nzdusd
                 else:
-                    # Fallback to EURUSD
-                    vega_eur = vega_base / eurusd
+                    # Fallback: assume quote currency trades vs USD at 1:1
+                    vega_usd = vega_quote
 
-                # USD conversion
-                if base_ccy == 'USD':
-                    vega_usd = vega_base
-                else:
-                    vega_usd = vega_eur * eurusd
+                vega_eur = vega_usd / eurusd
 
-            logger.debug(f"  vega_eur={vega_eur:,.0f}, vega_usd={vega_usd:,.0f}")
+            logger.debug(f"  vega_usd={vega_usd:,.0f}, vega_eur={vega_eur:,.0f}")
 
             # Apply direction sign
             sign = 1 if option.is_long else -1
