@@ -211,3 +211,134 @@
 2026-01-15 08:58:33,405 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
 2026-01-15 08:58:33,414 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
 2026-01-15 08:58:33,655 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
+2026-01-15 08:59:31,744 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:59:32,069 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16300
+2026-01-15 08:59:32,070 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 08:59:32,843 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSD1Y Curncy: securityError = {
+    source = "23102:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23102]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:59:32,844 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSDTrue Curncy: securityError = {
+    source = "23890:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23890]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:59:32,846 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURUSD
+2026-01-15 08:59:32,847 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:59:33,574 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 08:59:33,584 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16300, F=1.16780, vol=4.83%, T=0.2438y
+2026-01-15 08:59:33,587 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16300, F=1.16780, vol=4.83%, T=0.2438y
+2026-01-15 08:59:33,592 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:59:33,898 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16300
+2026-01-15 09:00:31,743 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:00:32,037 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:00:32,037 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:00:32,926 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSD1Y Curncy: securityError = {
+    source = "19412:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19412]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 09:00:32,927 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSDTrue Curncy: securityError = {
+    source = "23118:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23118]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 09:00:32,931 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURUSD
+2026-01-15 09:00:32,932 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:00:34,281 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:00:34,288 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:00:34,291 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:00:34,294 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:00:34,589 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:08:20,438 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-15 09:08:20,563 - src.core.bloomberg_client - INFO - Bloomberg: Attempting connection to localhost:8194
+2026-01-15 09:08:20,810 - src.core.bloomberg_client - INFO - Bloomberg: Successfully connected to Bloomberg API
+2026-01-15 09:08:20,810 - src.core.market_data_provider - INFO - Bloomberg API connected successfully
+2026-01-15 09:08:21,447 - __main__ - INFO - Application started successfully
+2026-01-15 09:08:21,452 - src.core.portfolio_manager - INFO - Loaded 2 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-15 09:08:21,455 - src.core.forward_manager - INFO - Loaded 1 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-15 09:08:21,456 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 09:08:21,740 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93188
+2026-01-15 09:08:21,741 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURCHF (14 tenors)
+2026-01-15 09:08:23,041 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURCHF
+2026-01-15 09:08:23,042 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURCHF (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:23,920 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURCHF (0 errors)
+2026-01-15 09:08:23,925 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for GBPUSD (ticker: GBPUSD Curncy)
+2026-01-15 09:08:24,197 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD spot rate = 1.34300
+2026-01-15 09:08:24,197 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for GBPUSD (14 tenors)
+2026-01-15 09:08:25,051 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for GBPUSD
+2026-01-15 09:08:25,052 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for GBPUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:26,007 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for GBPUSD (0 errors)
+2026-01-15 09:08:26,015 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURGBP (ticker: EURGBP Curncy)
+2026-01-15 09:08:26,343 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP spot rate = 0.86581
+2026-01-15 09:08:26,344 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURGBP (14 tenors)
+2026-01-15 09:08:27,271 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURGBP
+2026-01-15 09:08:27,271 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURGBP (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:28,146 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURGBP (0 errors)
+2026-01-15 09:08:28,152 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDJPY (ticker: USDJPY Curncy)
+2026-01-15 09:08:28,409 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY spot rate = 158.61000
+2026-01-15 09:08:28,410 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDJPY (14 tenors)
+2026-01-15 09:08:29,270 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDJPY
+2026-01-15 09:08:29,271 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDJPY (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:30,153 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDJPY (0 errors)
+2026-01-15 09:08:30,160 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDUSD (ticker: AUDUSD Curncy)
+2026-01-15 09:08:30,457 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD spot rate = 0.66810
+2026-01-15 09:08:30,458 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDUSD (14 tenors)
+2026-01-15 09:08:31,297 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDUSD
+2026-01-15 09:08:31,298 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:32,109 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDUSD (0 errors)
+2026-01-15 09:08:32,114 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDNZD (ticker: AUDNZD Curncy)
+2026-01-15 09:08:32,381 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD spot rate = 1.16440
+2026-01-15 09:08:32,382 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDNZD (14 tenors)
+2026-01-15 09:08:33,597 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDNZD
+2026-01-15 09:08:33,598 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDNZD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:34,367 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDNZD (0 errors)
+2026-01-15 09:08:34,374 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDCAD (ticker: USDCAD Curncy)
+2026-01-15 09:08:34,637 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD spot rate = 1.39050
+2026-01-15 09:08:34,638 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDCAD (14 tenors)
+2026-01-15 09:08:35,412 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDCAD
+2026-01-15 09:08:35,412 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDCAD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:36,376 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDCAD (0 errors)
+2026-01-15 09:08:36,384 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:08:36,675 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:08:36,676 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:08:37,475 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 09:08:37,476 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:08:38,530 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:08:39,355 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:08:39,360 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:08:39,363 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:08:39,618 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:09:20,949 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:09:21,269 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:09:21,270 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:09:22,168 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 09:09:22,169 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:09:23,068 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:09:23,071 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:09:23,073 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16280, F=1.16760, vol=4.83%, T=0.2438y
+2026-01-15 09:09:23,077 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:09:23,387 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16280
+2026-01-15 09:10:20,953 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:10:21,224 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
+2026-01-15 09:10:21,225 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:10:22,151 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 09:10:22,152 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:10:23,001 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:10:23,008 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 09:10:23,011 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 09:10:23,016 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:10:23,290 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
