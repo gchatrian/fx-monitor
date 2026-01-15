@@ -207,18 +207,27 @@ class FXOptionPricer:
             # We need to convert to % of notional
             raw_price = european_option.NPV()
 
+            logger.debug(f"Pricing {option.cross} {option.option_type} K={option.strike:.5f}: "
+                        f"S={spot:.5f}, F={forward:.5f}, vol={volatility:.2f}%, T={time_to_expiry:.4f}y, "
+                        f"raw_price={raw_price:.6f}")
+
             # Convert price to % of notional
-            # For EURUSD: price in USD per EUR, divide by spot to get %
-            # For USDJPY: price in JPY per USD, divide by spot to get %
+            # For FX options, premium is typically quoted as % of base currency notional
+            # QuantLib gives price in domestic (quote) currency per 1 unit of foreign (base)
+            # To get %, we divide by spot
             if spot > 0:
                 greeks.price = raw_price / spot
             else:
                 greeks.price = 0.0
 
+            logger.debug(f"  price_pct={greeks.price:.6f} ({greeks.price*100:.4f}%)")
+
             greeks.delta = european_option.delta()
             greeks.gamma = european_option.gamma()
             greeks.vega = european_option.vega() / 100  # Per 1% vol move
             greeks.theta = european_option.theta() / 365  # Per day
+
+            logger.debug(f"  delta={greeks.delta:.4f}, gamma={greeks.gamma:.6f}, vega={greeks.vega:.4f}")
 
             try:
                 greeks.rho = european_option.rho()
@@ -472,6 +481,9 @@ class FXOptionPricer:
                 volatility = vol_surface.get_vol_for_strike(time_to_expiry, option.strike, forward)
             else:
                 volatility = 10.0  # Default
+
+            logger.info(f"Pricing {cross} {option.option_type} K={option.strike:.5f} exp={option.expiry}: "
+                       f"S={md.spot:.5f}, F={forward:.5f}, vol={volatility:.2f}%, T={time_to_expiry:.4f}y")
 
             # Price option
             greeks = self.price_option(option, md.spot, forward, volatility)

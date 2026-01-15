@@ -336,23 +336,65 @@ class ForwardManager:
         """
         Calculate P&L and aggregate positions using MarketDataProvider.
 
+        All P&L values are converted to EUR for consistent aggregation.
+
         Args:
             market_provider: MarketDataProvider instance (supports both Bloomberg and mock)
         """
+        # Get EURUSD for currency conversion
+        eurusd = market_provider.get_spot_rate('EURUSD')
+        if eurusd <= 0:
+            eurusd = 1.08  # Fallback
+
         for forward in self.forwards:
+            cross = forward.cross.upper()
+
+            # Get current spot rate for the cross
+            spot = market_provider.get_spot_rate(cross)
+
             # Get current forward rate for value date
             forward.current_rate = market_provider.get_forward_rate_for_date(
-                forward.cross, forward.value_date
+                cross, forward.value_date
             )
 
-            # Calculate P&L
+            # Calculate P&L in quote currency
             if forward.rate > 0 and forward.current_rate > 0:
                 rate_diff = forward.current_rate - forward.rate
 
                 if forward.is_buy:
-                    forward.pnl = forward.notional * rate_diff
+                    pnl_quote = forward.notional * rate_diff
                 else:
-                    forward.pnl = forward.notional * (-rate_diff)
+                    pnl_quote = forward.notional * (-rate_diff)
+
+                # Convert P&L to EUR based on cross
+                if cross.startswith('EUR'):
+                    # EURUSD, EURGBP, etc. - P&L is in quote currency
+                    # For EURUSD: P&L in USD, convert to EUR
+                    if 'USD' in cross:
+                        forward.pnl = pnl_quote / eurusd
+                    elif 'GBP' in cross:
+                        # EURGBP: P&L in GBP, need GBPUSD to convert
+                        gbpusd = market_provider.get_spot_rate('GBPUSD')
+                        if gbpusd > 0:
+                            forward.pnl = pnl_quote * gbpusd / eurusd
+                        else:
+                            forward.pnl = pnl_quote
+                    else:
+                        forward.pnl = pnl_quote
+                elif cross.startswith('USD'):
+                    # USDJPY, USDCAD, etc. - P&L is in JPY/CAD
+                    # Convert to USD first, then to EUR
+                    if spot > 0:
+                        pnl_usd = pnl_quote / spot  # Convert JPY/CAD to USD
+                        forward.pnl = pnl_usd / eurusd  # USD to EUR
+                    else:
+                        forward.pnl = pnl_quote / eurusd
+                elif cross.endswith('USD'):
+                    # GBPUSD, AUDUSD, etc. - P&L is in USD
+                    forward.pnl = pnl_quote / eurusd
+                else:
+                    # Other crosses - approximate
+                    forward.pnl = pnl_quote
 
             # Delta equivalent is simply the signed notional
             forward.delta_equivalent = forward.signed_notional

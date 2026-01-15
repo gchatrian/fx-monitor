@@ -11,7 +11,7 @@ from ..utils.config_loader import ConfigLoader
 from ..utils.date_utils import DateUtils
 from .pricing_engine import FXOption, FXOptionPricer
 from .volatility_surface import VolatilitySurface
-from .bloomberg_client import FXMarketData
+from .market_data_provider import FXMarketData
 
 logger = logging.getLogger(__name__)
 
