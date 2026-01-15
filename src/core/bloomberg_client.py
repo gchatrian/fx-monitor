@@ -162,6 +162,27 @@ class BloombergClient:
         logger.warning(f"Bloomberg: Could not retrieve spot rate for {cross}")
         return None
 
+    def _get_forward_ticker_prefix(self, cross: str) -> str:
+        """
+        Get the Bloomberg ticker prefix for forward points.
+
+        Bloomberg uses different conventions:
+        - Major vs USD: EUR1M, GBP1M, JPY1M, CAD1M, AUD1M (base currency only)
+        - Cross rates: EURGBP1M, EURCHF1M, AUDNZD1M (full cross)
+        """
+        # Crosses that use base currency only
+        base_only_crosses = {
+            'EURUSD': 'EUR',
+            'GBPUSD': 'GBP',
+            'USDJPY': 'JPY',
+            'USDCAD': 'CAD',
+            'AUDUSD': 'AUD',
+            'NZDUSD': 'NZD',
+            'USDCHF': 'CHF',
+        }
+
+        return base_only_crosses.get(cross.upper(), cross.upper())
+
     def get_forward_points(self, cross: str) -> Dict[str, float]:
         """Fetch forward points curve for an FX cross."""
         forward_points = {}
@@ -169,11 +190,14 @@ class BloombergClient:
 
         logger.info(f"Bloomberg: Fetching forward points for {cross} ({len(tenors)} tenors)")
 
+        # Get the correct ticker prefix for this cross
+        ticker_prefix = self._get_forward_ticker_prefix(cross)
+
         # Build tickers for each tenor
         tickers = []
         for tenor in tenors:
-            # Bloomberg convention: EURUSD1M Curncy for 1M forward points
-            ticker = f"{cross}{tenor} Curncy"
+            # Bloomberg convention: EUR1M Curncy for EURUSD, EURGBP1M Curncy for EURGBP
+            ticker = f"{ticker_prefix}{tenor} Curncy"
             tickers.append((tenor, ticker))
 
         logger.debug(f"Bloomberg: Forward tickers to request: {[t[1] for t in tickers]}")
