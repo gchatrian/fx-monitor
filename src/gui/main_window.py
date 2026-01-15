@@ -445,7 +445,8 @@ class MainWindow(QMainWindow):
             fwd_pos = self.forward_manager.get_position(cross, expiry)
             md = self.market_data.get(cross)
 
-            window = DetailWindow(cross, expiry, opt_pos, fwd_pos, md, self)
+            vol_surface = self.vol_surfaces.get(cross)
+            window = DetailWindow(cross, expiry, opt_pos, fwd_pos, md, vol_surface, self)
             window.closed.connect(lambda: self.detail_windows.pop(key, None))
             window.forward_added.connect(self._on_forward_added)
             self.detail_windows[key] = window

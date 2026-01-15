@@ -493,9 +493,14 @@ class FXOptionPricer:
 
             logger.info(f"Pricing {cross} {option.option_type} K={option.strike:.5f} exp={option.expiry}: "
                        f"S={md.spot:.5f}, F={forward:.5f}, vol={volatility:.2f}%, T={time_to_expiry:.4f}y")
+            logger.info(f"  Trade price: {option.trade_price:.6f} ({option.trade_price*100:.4f}%), "
+                       f"Direction: {option.direction}, Notional: {option.notional:,.0f}")
 
             # Price option
             greeks = self.price_option(option, md.spot, forward, volatility)
+
+            logger.info(f"  QuantLib price: {greeks.price:.6f} ({greeks.price*100:.4f}%), "
+                       f"delta={greeks.delta:.4f}, vega={greeks.vega:.6f}")
 
             # Calculate forward delta
             delta = self.calculate_forward_delta(option, md.spot, forward, volatility)
@@ -508,6 +513,9 @@ class FXOptionPricer:
                 option, md.spot, forward, volatility, option.notional, market_data
             )
 
+            logger.info(f"  Forward delta: {delta:.4f}, gamma_1pct: {gamma_1pct:.6f}, "
+                       f"vega_usd: {vega_usd:,.0f}, vega_eur: {vega_eur:,.0f}")
+
             # Update option with calculated values
             option.current_price = greeks.price
             option.delta = delta
@@ -518,5 +526,10 @@ class FXOptionPricer:
 
             # Calculate P&L (pass market_data for EUR conversion)
             option.pnl = self.calculate_pnl(option, greeks.price, market_data)
+
+            logger.info(f"  Final values - current_price: {option.current_price:.6f}, "
+                       f"delta_notional: {option.delta_notional:,.0f}, "
+                       f"gamma_1pct: {option.gamma_1pct:,.0f}, vega_eur: {option.vega_eur:,.0f}, "
+                       f"pnl: {option.pnl:,.0f} EUR")
 
         return options

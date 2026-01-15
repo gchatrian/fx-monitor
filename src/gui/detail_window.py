@@ -18,6 +18,7 @@ from .add_forward_dialog import AddForwardDialog
 from ..core.portfolio_manager import AggregatedPosition
 from ..core.forward_manager import AggregatedForwardPosition, FXForward
 from ..core.market_data_provider import FXMarketData
+from ..core.volatility_surface import VolatilitySurface
 
 
 class DetailWindow(QWidget):
@@ -30,6 +31,7 @@ class DetailWindow(QWidget):
                  option_position: Optional[AggregatedPosition],
                  forward_position: Optional[AggregatedForwardPosition],
                  market_data: Optional[FXMarketData],
+                 vol_surface: Optional[VolatilitySurface] = None,
                  parent=None):
         super().__init__(parent)
 
@@ -38,6 +40,7 @@ class DetailWindow(QWidget):
         self.option_position = option_position
         self.forward_position = forward_position
         self.market_data = market_data
+        self.vol_surface = vol_surface
 
         self._setup_ui()
 
@@ -118,11 +121,10 @@ class DetailWindow(QWidget):
         spot_box = self._create_info_box("Spot", f"{self.market_data.spot:.5f}")
         layout.addWidget(spot_box)
 
-        # Forward rate (if available)
-        if self.market_data.forward_rates:
-            # Find closest tenor
-            closest_fwd = list(self.market_data.forward_rates.values())[0] if self.market_data.forward_rates else 0
-            fwd_box = self._create_info_box("Forward", f"{closest_fwd:.5f}")
+        # Forward rate for expiry (interpolated from vol surface)
+        forward_rate = self._get_forward_for_expiry()
+        if forward_rate:
+            fwd_box = self._create_info_box("Forward", f"{forward_rate:.5f}")
             layout.addWidget(fwd_box)
 
         # ATM Vol (if available)
@@ -380,6 +382,67 @@ class DetailWindow(QWidget):
             forward = dialog.get_forward()
             if forward:
                 self.forward_added.emit(forward)
+
+    def _get_forward_for_expiry(self) -> Optional[float]:
+        """Get the forward rate for the expiry date."""
+        from datetime import datetime
+
+        if not self.expiry:
+            return None
+
+        try:
+            # Parse expiry date
+            expiry_date = datetime.strptime(self.expiry, '%Y-%m-%d').date()
+            today = date.today()
+
+            # Calculate time to expiry in years
+            days_to_expiry = (expiry_date - today).days
+            if days_to_expiry <= 0:
+                return None
+            time_to_expiry = days_to_expiry / 365.0
+
+            # Use vol surface if available (has interpolated forward rates)
+            if self.vol_surface:
+                return self.vol_surface.get_forward_for_expiry(time_to_expiry)
+
+            # Fallback: interpolate from market_data.forward_rates
+            if self.market_data and self.market_data.forward_rates:
+                from ..utils.date_utils import DateUtils
+
+                # Build tenor -> time mapping
+                tenor_times = {}
+                for tenor in self.market_data.forward_rates.keys():
+                    tenor_times[tenor] = DateUtils.tenor_to_years(tenor)
+
+                # Sort by time
+                sorted_tenors = sorted(tenor_times.items(), key=lambda x: x[1])
+
+                if not sorted_tenors:
+                    return None
+
+                # Find surrounding tenors
+                if time_to_expiry <= sorted_tenors[0][1]:
+                    return self.market_data.forward_rates[sorted_tenors[0][0]]
+
+                if time_to_expiry >= sorted_tenors[-1][1]:
+                    return self.market_data.forward_rates[sorted_tenors[-1][0]]
+
+                for i in range(len(sorted_tenors) - 1):
+                    t1_tenor, t1_time = sorted_tenors[i]
+                    t2_tenor, t2_time = sorted_tenors[i + 1]
+
+                    if t1_time <= time_to_expiry <= t2_time:
+                        f1 = self.market_data.forward_rates[t1_tenor]
+                        f2 = self.market_data.forward_rates[t2_tenor]
+
+                        # Linear interpolation
+                        w = (time_to_expiry - t1_time) / (t2_time - t1_time)
+                        return f1 + w * (f2 - f1)
+
+            return None
+
+        except Exception:
+            return None
 
     def closeEvent(self, event):
         """Handle window close."""
