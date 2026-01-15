@@ -17,7 +17,7 @@ from .styles import (
 )
 from .detail_window import DetailWindow
 from .add_forward_dialog import AddForwardDialog
-from ..core.bloomberg_client import BloombergClient, get_bloomberg_client, FXMarketData
+from ..core.market_data_provider import MarketDataProvider, get_market_data_provider, FXMarketData
 from ..core.volatility_surface import VolatilitySurface
 from ..core.portfolio_manager import PortfolioManager
 from ..core.forward_manager import ForwardManager
@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.config = ConfigLoader()
-        self.bloomberg = get_bloomberg_client()
+        self.market_provider = get_market_data_provider()
         self.portfolio_manager = PortfolioManager()
         self.forward_manager = ForwardManager()
 
@@ -202,27 +202,22 @@ class MainWindow(QMainWindow):
         self.portfolio_manager.load_from_csv()
         self.forward_manager.load_from_csv()
 
-        # Try to connect to Bloomberg
-        self._connect_bloomberg()
+        # Update connection status
+        self._update_connection_status()
 
         # Refresh market data
         self.refresh_data()
 
-    def _connect_bloomberg(self):
-        """Connect to Bloomberg API."""
-        try:
-            if self.bloomberg.connect():
-                self.status_label.setText("Connected")
-                self.status_label.setStyleSheet(f"color: {COLORS['positive']};")
-                self.statusBar.showMessage("Connected to Bloomberg")
-            else:
-                self.status_label.setText("Disconnected")
-                self.status_label.setStyleSheet(f"color: {COLORS['negative']};")
-                self.statusBar.showMessage("Bloomberg connection failed - using cached data")
-        except Exception as e:
-            logger.error(f"Bloomberg connection error: {e}")
-            self.status_label.setText("Error")
+    def _update_connection_status(self):
+        """Update connection status display."""
+        if self.market_provider.is_using_bloomberg():
+            self.status_label.setText("Bloomberg")
+            self.status_label.setStyleSheet(f"color: {COLORS['positive']};")
+            self.statusBar.showMessage("Connected to Bloomberg API")
+        else:
+            self.status_label.setText("Mock Data")
             self.status_label.setStyleSheet(f"color: {COLORS['warning']};")
+            self.statusBar.showMessage("Using mock market data (Bloomberg unavailable)")
 
     def refresh_data(self):
         """Refresh all market data and recalculate positions."""
@@ -241,7 +236,7 @@ class MainWindow(QMainWindow):
             # Fetch market data
             for cross in all_crosses:
                 try:
-                    md = self.bloomberg.get_all_market_data(cross, force_refresh=True)
+                    md = self.market_provider.get_all_market_data(cross, force_refresh=True)
                     self.market_data[cross] = md
 
                     # Build volatility surface
@@ -261,7 +256,7 @@ class MainWindow(QMainWindow):
             self.portfolio_manager.price_portfolio(self.market_data, self.vol_surfaces)
 
             # Calculate forward positions
-            self.forward_manager.calculate_positions(self.bloomberg)
+            self.forward_manager.calculate_positions_with_provider(self.market_provider)
 
             # Update UI
             self._update_positions_table()
@@ -279,7 +274,8 @@ class MainWindow(QMainWindow):
     def _on_refresh_completed(self):
         """Handle refresh completion."""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        self.statusBar.showMessage(f"Data refreshed at {timestamp}")
+        data_source = "Bloomberg" if self.market_provider.is_using_bloomberg() else "Mock"
+        self.statusBar.showMessage(f"Data refreshed at {timestamp} ({data_source})")
 
         # Update last update time
         value_label = self.last_update_label.findChild(QLabel, "value")
@@ -440,7 +436,7 @@ class MainWindow(QMainWindow):
         self.forward_manager.save_to_csv()
 
         # Recalculate and refresh
-        self.forward_manager.calculate_positions(self.bloomberg)
+        self.forward_manager.calculate_positions_with_provider(self.market_provider)
         self._update_positions_table()
         self._update_summary()
 
@@ -455,7 +451,7 @@ class MainWindow(QMainWindow):
         # Stop refresh timer
         self.refresh_timer.stop()
 
-        # Disconnect Bloomberg
-        self.bloomberg.disconnect()
+        # Disconnect market provider
+        self.market_provider.disconnect()
 
         event.accept()

@@ -1,5 +1,5 @@
 # Core modules
-from .bloomberg_client import BloombergClient
+from .market_data_provider import MarketDataProvider, get_market_data_provider, FXMarketData
 from .volatility_surface import VolatilitySurface
 from .pricing_engine import FXOptionPricer
 from .portfolio_manager import PortfolioManager

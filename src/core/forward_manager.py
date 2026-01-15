@@ -331,3 +331,30 @@ class ForwardManager:
             'num_crosses': len(self.summaries_by_cross),
             'crosses': list(self.summaries_by_cross.keys())
         }
+
+    def calculate_positions_with_provider(self, market_provider) -> None:
+        """
+        Calculate P&L and aggregate positions using MarketDataProvider.
+
+        Args:
+            market_provider: MarketDataProvider instance (supports both Bloomberg and mock)
+        """
+        for forward in self.forwards:
+            # Get current forward rate for value date
+            forward.current_rate = market_provider.get_forward_rate_for_date(
+                forward.cross, forward.value_date
+            )
+
+            # Calculate P&L
+            if forward.rate > 0 and forward.current_rate > 0:
+                rate_diff = forward.current_rate - forward.rate
+
+                if forward.is_buy:
+                    forward.pnl = forward.notional * rate_diff
+                else:
+                    forward.pnl = forward.notional * (-rate_diff)
+
+            # Delta equivalent is simply the signed notional
+            forward.delta_equivalent = forward.signed_notional
+
+        self._aggregate_positions()
