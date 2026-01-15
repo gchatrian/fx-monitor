@@ -114,7 +114,10 @@ class VolatilitySmile:
             else:
                 return float(self._interp(-0.10))
 
-        return float(self._interp(delta))
+        result = float(self._interp(delta))
+        logger.debug(f"VolSmile {self.tenor}: get_vol_for_delta({delta:.4f}) = {result:.2f}% "
+                    f"[ATM={self.atm_vol:.2f}%, 25c={self.vol_25c:.2f}%, 25p={self.vol_25p:.2f}%]")
+        return result
 
     def get_vol_for_strike(self, strike: float) -> float:
         """
@@ -251,8 +254,13 @@ class VolatilitySurface:
 
             self.smiles[tenor] = smile
             self.tenor_times[tenor] = time_to_expiry
+            logger.debug(f"VolSurface {self.cross}: Added {tenor} smile - ATM={atm:.2f}%, "
+                        f"25RR={rr_25:.2f}, 10RR={rr_10:.2f}, 25BF={bf_25:.2f}, 10BF={bf_10:.2f}, "
+                        f"fwd={forward:.5f}, T={time_to_expiry:.4f}y")
 
         self._build_time_interpolator()
+        logger.info(f"VolSurface {self.cross}: Built with tenors {self._sorted_tenors} "
+                   f"times {[f'{t:.4f}y' for t in self._sorted_times]}")
 
     def _build_time_interpolator(self) -> None:
         """Build interpolator for time dimension."""
@@ -288,43 +296,29 @@ class VolatilitySurface:
             return self.smiles[self._sorted_tenors[0]].get_vol_for_delta(delta)
 
         if time_to_expiry >= self._sorted_times[-1]:
-            # After last tenor - extrapolate using last two smiles
-            if len(self._sorted_tenors) >= 2:
-                t1 = self._sorted_times[-2]
-                t2 = self._sorted_times[-1]
-                v1 = self.smiles[self._sorted_tenors[-2]].get_vol_for_delta(delta)
-                v2 = self.smiles[self._sorted_tenors[-1]].get_vol_for_delta(delta)
-
-                # Linear extrapolation in variance time
-                var1 = v1 * v1 * t1
-                var2 = v2 * v2 * t2
-                slope = (var2 - var1) / (t2 - t1)
-                var_extrap = var2 + slope * (time_to_expiry - t2)
-
-                if var_extrap > 0:
-                    return math.sqrt(var_extrap / time_to_expiry)
-
+            # After last tenor - use flat extrapolation (last vol)
+            # This is more conservative than linear extrapolation
             return self.smiles[self._sorted_tenors[-1]].get_vol_for_delta(delta)
 
-        # Linear interpolation in variance between surrounding tenors
+        # Linear interpolation in volatility between surrounding tenors
         for i in range(len(self._sorted_times) - 1):
             t1 = self._sorted_times[i]
             t2 = self._sorted_times[i + 1]
 
             if t1 <= time_to_expiry <= t2:
-                v1 = self.smiles[self._sorted_tenors[i]].get_vol_for_delta(delta)
-                v2 = self.smiles[self._sorted_tenors[i + 1]].get_vol_for_delta(delta)
+                tenor1 = self._sorted_tenors[i]
+                tenor2 = self._sorted_tenors[i + 1]
+                v1 = self.smiles[tenor1].get_vol_for_delta(delta)
+                v2 = self.smiles[tenor2].get_vol_for_delta(delta)
 
-                # Linear interpolation in variance time
-                var1 = v1 * v1 * t1
-                var2 = v2 * v2 * t2
-
-                # Interpolation weight
+                # Linear interpolation in volatility
                 w = (time_to_expiry - t1) / (t2 - t1)
-                var_interp = var1 + w * (var2 - var1)
+                result = v1 + w * (v2 - v1)
 
-                if var_interp > 0:
-                    return math.sqrt(var_interp / time_to_expiry)
+                logger.debug(f"VolSurface.get_vol: T={time_to_expiry:.4f}y between {tenor1}({t1:.4f}y) "
+                            f"and {tenor2}({t2:.4f}y), delta={delta:.2f}, v1={v1:.2f}%, v2={v2:.2f}%, "
+                            f"interpolated={result:.2f}%")
+                return result
 
         return self.smiles[self._sorted_tenors[0]].get_vol_for_delta(delta)
 
@@ -362,7 +356,12 @@ class VolatilitySurface:
             delta = delta - 1
 
         # Now get vol for this delta
-        return self.get_vol(time_to_expiry, delta)
+        final_vol = self.get_vol(time_to_expiry, delta)
+
+        logger.debug(f"VolSurface.get_vol_for_strike: T={time_to_expiry:.4f}y, K={strike:.5f}, "
+                    f"F={forward:.5f}, atm_vol={atm_vol:.2f}%, delta={delta:.4f}, final_vol={final_vol:.2f}%")
+
+        return final_vol
 
     def get_forward_for_expiry(self, time_to_expiry: float) -> float:
         """

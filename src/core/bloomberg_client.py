@@ -337,11 +337,15 @@ class BloombergClient:
 
             logger.info(f"Bloomberg: Retrieved {received_count}/{total_points} vol surface points for {cross} ({error_count} errors)")
 
-            # Log summary of vol surface
+            # Log summary of vol surface - use INFO level for ATM vols
             if vol_surface:
+                atm_summary = []
                 for tenor in sorted(vol_surface.keys()):
                     pillars_str = ", ".join([f"{p}={v:.2f}" for p, v in vol_surface[tenor].items()])
                     logger.debug(f"Bloomberg: {cross} {tenor}: {pillars_str}")
+                    if 'ATM' in vol_surface[tenor]:
+                        atm_summary.append(f"{tenor}={vol_surface[tenor]['ATM']:.2f}%")
+                logger.info(f"Bloomberg: {cross} ATM vols: {', '.join(atm_summary)}")
 
         except Exception as e:
             logger.error(f"Bloomberg: Error parsing volatility surface for {cross} - {type(e).__name__}: {e}")
