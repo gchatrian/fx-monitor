@@ -338,15 +338,19 @@ class FXOptionPricer:
         try:
             greeks = self.price_option(option, spot, forward, volatility)
 
-            # Vega from greeks is in % terms (per notional unit)
-            # Multiply by notional to get vega in base currency
-            vega_base = greeks.vega * abs(notional) * spot  # Convert back to currency
-
-            # Convert to USD and EUR based on cross
             cross = option.cross.upper()
             base_ccy = cross[:3]
+            quote_ccy = cross[3:]
 
-            # Get EURUSD for USD conversion
+            # greeks.vega is in % terms (vega per unit notional as % of notional)
+            # To get vega in base currency: vega_pct * notional
+            # This gives the change in premium (in base currency) for 1% vol move
+            vega_base = greeks.vega * abs(notional)
+
+            logger.debug(f"Vega calc for {cross}: greeks.vega={greeks.vega:.6f}, "
+                        f"notional={notional:,.0f}, vega_base={vega_base:,.0f} {base_ccy}")
+
+            # Get EURUSD for conversions
             eurusd = 1.08  # Default
             if market_data and 'EURUSD' in market_data:
                 eurusd = market_data['EURUSD'].spot
@@ -356,16 +360,18 @@ class FXOptionPricer:
                 vega_eur = vega_base
                 vega_usd = vega_base * eurusd
             else:
-                # Get EUR cross for base currency
+                # Get EUR cross for base currency (e.g., EURUSD for USD, EURGBP for GBP)
                 eur_cross = f'EUR{base_ccy}'
                 if market_data and eur_cross in market_data:
                     eur_rate = market_data[eur_cross].spot
                     if eur_rate and eur_rate > 0:
+                        # EUR/XXX means 1 EUR = X units of XXX
+                        # To convert XXX to EUR: amount / EUR_XXX_rate
                         vega_eur = vega_base / eur_rate
                     else:
                         vega_eur = vega_base / eurusd
                 else:
-                    # Fallback
+                    # Fallback to EURUSD
                     vega_eur = vega_base / eurusd
 
                 # USD conversion
@@ -373,6 +379,8 @@ class FXOptionPricer:
                     vega_usd = vega_base
                 else:
                     vega_usd = vega_eur * eurusd
+
+            logger.debug(f"  vega_eur={vega_eur:,.0f}, vega_usd={vega_usd:,.0f}")
 
             # Apply direction sign
             sign = 1 if option.is_long else -1

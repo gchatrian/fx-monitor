@@ -107,7 +107,7 @@ class MainWindow(QMainWindow):
         summary_layout = QHBoxLayout(summary_frame)
 
         # Portfolio summary cards
-        self.total_pnl_label = self._create_summary_card("Total P&L", "0")
+        self.total_pnl_label = self._create_summary_card("Total P&L (EUR)", "0")
         self.total_vega_label = self._create_summary_card("Total Vega (EUR)", "0")
         self.options_count_label = self._create_summary_card("Options", "0")
         self.forwards_count_label = self._create_summary_card("Forwards", "0")
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow):
         """Configure the positions table."""
         columns = [
             "Cross", "Expiry", "Fwd", "Vol ATMF",
-            "Options P&L", "Forward P&L", "Total P&L",
+            "Options P&L (EUR)", "Forward P&L (EUR)", "Total P&L (EUR)",
             "Options Delta", "Forward Delta", "Total Delta",
             "Gamma 1%", "Vega EUR"
         ]

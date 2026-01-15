@@ -277,7 +277,7 @@ class DetailWindow(QWidget):
         table = QTableWidget()
         columns = [
             "Trade Date", "Type", "Direction", "Strike", "Notional",
-            "Price %", "Current %", "Delta", "Gamma 1%", "Vega EUR", "P&L"
+            "Price %", "Current %", "Delta", "Gamma 1%", "Vega EUR", "P&L (EUR)"
         ]
 
         table.setColumnCount(len(columns))
@@ -333,7 +333,7 @@ class DetailWindow(QWidget):
         table = QTableWidget()
         columns = [
             "Trade Date", "Direction", "Notional", "Value Date",
-            "Trade Rate", "Current Rate", "P&L"
+            "Trade Rate", "Current Rate", "P&L (EUR)"
         ]
 
         table.setColumnCount(len(columns))
