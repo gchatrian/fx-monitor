@@ -336,21 +336,13 @@ class ForwardManager:
         """
         Calculate P&L and aggregate positions using MarketDataProvider.
 
-        All P&L values are converted to EUR for consistent aggregation.
+        All P&L values are converted to EUR using direct EUR crosses.
 
         Args:
             market_provider: MarketDataProvider instance (supports both Bloomberg and mock)
         """
-        # Get EURUSD for currency conversion
-        eurusd = market_provider.get_spot_rate('EURUSD')
-        if eurusd <= 0:
-            eurusd = 1.08  # Fallback
-
         for forward in self.forwards:
             cross = forward.cross.upper()
-
-            # Get current spot rate for the cross
-            spot = market_provider.get_spot_rate(cross)
 
             # Get current forward rate for value date
             forward.current_rate = market_provider.get_forward_rate_for_date(
@@ -366,37 +358,49 @@ class ForwardManager:
                 else:
                     pnl_quote = forward.notional * (-rate_diff)
 
-                # Convert P&L to EUR based on cross
-                if cross.startswith('EUR'):
-                    # EURUSD, EURGBP, etc. - P&L is in quote currency
-                    # For EURUSD: P&L in USD, convert to EUR
-                    if 'USD' in cross:
-                        forward.pnl = pnl_quote / eurusd
-                    elif 'GBP' in cross:
-                        # EURGBP: P&L in GBP, need GBPUSD to convert
-                        gbpusd = market_provider.get_spot_rate('GBPUSD')
-                        if gbpusd > 0:
-                            forward.pnl = pnl_quote * gbpusd / eurusd
-                        else:
-                            forward.pnl = pnl_quote
-                    else:
-                        forward.pnl = pnl_quote
-                elif cross.startswith('USD'):
-                    # USDJPY, USDCAD, etc. - P&L is in JPY/CAD
-                    # Convert to USD first, then to EUR
-                    if spot > 0:
-                        pnl_usd = pnl_quote / spot  # Convert JPY/CAD to USD
-                        forward.pnl = pnl_usd / eurusd  # USD to EUR
-                    else:
-                        forward.pnl = pnl_quote / eurusd
-                elif cross.endswith('USD'):
-                    # GBPUSD, AUDUSD, etc. - P&L is in USD
-                    forward.pnl = pnl_quote / eurusd
-                else:
-                    # Other crosses - approximate
-                    forward.pnl = pnl_quote
+                # Convert P&L to EUR using direct EUR crosses
+                forward.pnl = self._convert_to_eur(pnl_quote, cross, market_provider)
 
             # Delta equivalent is simply the signed notional
             forward.delta_equivalent = forward.signed_notional
 
         self._aggregate_positions()
+
+    def _convert_to_eur(self, amount: float, cross: str, market_provider) -> float:
+        """
+        Convert an amount in quote currency to EUR.
+
+        Uses direct EUR crosses for conversion (e.g., EURJPY for JPY, EURGBP for GBP).
+
+        Args:
+            amount: Amount in quote currency of the cross
+            cross: The FX cross (e.g., 'USDJPY', 'GBPUSD')
+            market_provider: MarketDataProvider instance
+
+        Returns:
+            Amount converted to EUR
+        """
+        cross = cross.upper()
+
+        # Determine the quote currency (second currency in the pair)
+        quote_ccy = cross[3:]  # e.g., 'USD' from 'EURUSD', 'JPY' from 'USDJPY'
+
+        # If quote currency is EUR, no conversion needed
+        if quote_ccy == 'EUR':
+            return amount
+
+        # Get EUR cross for the quote currency
+        eur_cross = f'EUR{quote_ccy}'
+        eur_rate = market_provider.get_spot_rate(eur_cross)
+
+        if eur_rate and eur_rate > 0:
+            # EUR/XXX rate means 1 EUR = X units of XXX
+            # So to convert XXX to EUR: amount / EUR_XXX_rate
+            return amount / eur_rate
+        else:
+            # Fallback: try EURUSD
+            logger.warning(f"No rate for {eur_cross}, using EURUSD fallback")
+            eurusd = market_provider.get_spot_rate('EURUSD')
+            if eurusd and eurusd > 0:
+                return amount / eurusd
+            return amount

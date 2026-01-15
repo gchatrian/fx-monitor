@@ -317,11 +317,12 @@ class FXOptionPricer:
 
     def calculate_vega(self, option: FXOption, spot: float, forward: float,
                       volatility: float, notional: float,
-                      eurusd: float = None) -> Tuple[float, float]:
+                      market_data: Dict = None) -> Tuple[float, float]:
         """
         Calculate vega in USD and EUR terms.
 
         Vega is the change in option value (in base currency) for 1% vol change.
+        Conversion to EUR uses direct EUR crosses.
 
         Args:
             option: FXOption object
@@ -329,7 +330,7 @@ class FXOptionPricer:
             forward: Forward rate
             volatility: Implied volatility in %
             notional: Option notional
-            eurusd: EURUSD rate for conversion to EUR
+            market_data: Dict of {cross: FXMarketData} for EUR conversion
 
         Returns:
             Tuple of (vega_usd, vega_eur)
@@ -343,30 +344,35 @@ class FXOptionPricer:
 
             # Convert to USD and EUR based on cross
             cross = option.cross.upper()
+            base_ccy = cross[:3]
 
-            if eurusd is None or eurusd <= 0:
-                eurusd = 1.08  # Default fallback
+            # Get EURUSD for USD conversion
+            eurusd = 1.08  # Default
+            if market_data and 'EURUSD' in market_data:
+                eurusd = market_data['EURUSD'].spot
 
-            if cross.startswith('EUR'):
-                # Base currency is EUR
+            # Convert vega to EUR using direct EUR cross
+            if base_ccy == 'EUR':
                 vega_eur = vega_base
-                if 'USD' in cross:
-                    vega_usd = vega_base * spot  # EUR to USD
-                else:
-                    vega_usd = vega_base * eurusd  # Approximate
-            elif cross.startswith('USD'):
-                # Base currency is USD (e.g., USDJPY, USDCAD)
-                vega_usd = vega_base
-                vega_eur = vega_base / eurusd
-            elif cross.endswith('USD'):
-                # Quote currency is USD (e.g., AUDUSD, GBPUSD)
-                # Vega is in base currency (AUD, GBP)
-                vega_usd = vega_base * spot  # Convert base to USD
-                vega_eur = vega_usd / eurusd
+                vega_usd = vega_base * eurusd
             else:
-                # Other crosses (e.g., EURGBP, AUDNZD)
-                vega_usd = vega_base
-                vega_eur = vega_base
+                # Get EUR cross for base currency
+                eur_cross = f'EUR{base_ccy}'
+                if market_data and eur_cross in market_data:
+                    eur_rate = market_data[eur_cross].spot
+                    if eur_rate and eur_rate > 0:
+                        vega_eur = vega_base / eur_rate
+                    else:
+                        vega_eur = vega_base / eurusd
+                else:
+                    # Fallback
+                    vega_eur = vega_base / eurusd
+
+                # USD conversion
+                if base_ccy == 'USD':
+                    vega_usd = vega_base
+                else:
+                    vega_usd = vega_eur * eurusd
 
             # Apply direction sign
             sign = 1 if option.is_long else -1
@@ -378,18 +384,17 @@ class FXOptionPricer:
             return 0.0, 0.0
 
     def calculate_pnl(self, option: FXOption, current_price: float,
-                      spot: float = None, eurusd: float = None) -> float:
+                      market_data: Dict = None) -> float:
         """
         Calculate P&L for an option position in EUR.
 
         Prices are expressed as % of notional in base currency.
-        P&L is converted to EUR for aggregation.
+        P&L is converted to EUR using direct EUR crosses.
 
         Args:
             option: FXOption object with trade_price (as % of notional)
             current_price: Current option price (as % of notional)
-            spot: Current spot rate for the cross
-            eurusd: EURUSD rate for conversion to EUR
+            market_data: Dict of {cross: FXMarketData} for EUR conversion rates
 
         Returns:
             P&L in EUR
@@ -404,31 +409,32 @@ class FXOptionPricer:
             # P&L in base currency = notional * price_diff * sign
             pnl_base = option.notional * price_diff * sign
 
-            # Convert to EUR based on cross
+            # Convert to EUR using direct EUR crosses
             cross = option.cross.upper()
+            base_ccy = cross[:3]  # First currency (e.g., 'EUR', 'USD', 'GBP', 'AUD')
 
-            if cross.startswith('EUR'):
-                # Base currency is EUR, P&L already in EUR
-                pnl_eur = pnl_base
-            elif cross.startswith('USD'):
-                # Base currency is USD, convert to EUR
+            if base_ccy == 'EUR':
+                # P&L already in EUR
+                return pnl_base
+
+            # Get EUR cross for the base currency
+            eur_cross = f'EUR{base_ccy}'
+
+            if market_data and eur_cross in market_data:
+                eur_rate = market_data[eur_cross].spot
+                if eur_rate and eur_rate > 0:
+                    # EUR/XXX means 1 EUR = X units of XXX
+                    # To convert XXX to EUR: amount / EUR_XXX_rate
+                    return pnl_base / eur_rate
+
+            # Fallback to EURUSD if available
+            if market_data and 'EURUSD' in market_data:
+                eurusd = market_data['EURUSD'].spot
                 if eurusd and eurusd > 0:
-                    pnl_eur = pnl_base / eurusd
-                else:
-                    pnl_eur = pnl_base  # Fallback
-            elif cross.endswith('USD'):
-                # Quote currency is USD (e.g., AUDUSD, GBPUSD)
-                # Base is AUD/GBP, need to convert via USD then EUR
-                if spot and spot > 0 and eurusd and eurusd > 0:
-                    pnl_usd = pnl_base * spot
-                    pnl_eur = pnl_usd / eurusd
-                else:
-                    pnl_eur = pnl_base
-            else:
-                # Other crosses - approximate
-                pnl_eur = pnl_base
+                    logger.warning(f"No rate for {eur_cross}, using EURUSD fallback")
+                    return pnl_base / eurusd
 
-            return pnl_eur
+            return pnl_base
 
         except Exception as e:
             logger.error(f"Error calculating P&L: {e}")
@@ -447,11 +453,6 @@ class FXOptionPricer:
         Returns:
             List of FXOption objects with calculated Greeks
         """
-        # Get EURUSD rate for currency conversion
-        eurusd = None
-        if 'EURUSD' in market_data:
-            eurusd = market_data['EURUSD'].spot
-
         for option in options:
             cross = option.cross.upper()
 
@@ -494,9 +495,9 @@ class FXOptionPricer:
             # Calculate gamma 1%
             gamma_1pct = self.calculate_gamma_1pct(option, md.spot, forward, volatility, vol_surface)
 
-            # Calculate vega
+            # Calculate vega (pass market_data for EUR conversion)
             vega_usd, vega_eur = self.calculate_vega(
-                option, md.spot, forward, volatility, option.notional, eurusd
+                option, md.spot, forward, volatility, option.notional, market_data
             )
 
             # Update option with calculated values
@@ -507,7 +508,7 @@ class FXOptionPricer:
             option.vega_usd = vega_usd
             option.vega_eur = vega_eur
 
-            # Calculate P&L
-            option.pnl = self.calculate_pnl(option, greeks.price, md.spot, eurusd)
+            # Calculate P&L (pass market_data for EUR conversion)
+            option.pnl = self.calculate_pnl(option, greeks.price, market_data)
 
         return options

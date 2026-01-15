@@ -42,6 +42,10 @@ class MarketDataProvider:
         'AUDNZD': 1.1050,
         'USDCHF': 0.8680,
         'NZDUSD': 0.5990,
+        # EUR crosses for P&L conversion
+        'EURJPY': 161.12,  # EURUSD * USDJPY
+        'EURCAD': 1.4734,  # EURUSD * USDCAD
+        'EURAUD': 1.6385,  # EURUSD / AUDUSD
     }
 
     # Forward points in pips (annualized interest rate differential effect)
