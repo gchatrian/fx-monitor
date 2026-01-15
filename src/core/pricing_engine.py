@@ -300,7 +300,7 @@ class FXOptionPricer:
                 valuation_date = date.today()
                 expiry_date = option.expiry
                 time_to_expiry = (expiry_date - valuation_date).days / 365
-                volatility_up = vol_surface.get_vol_for_strike(time_to_expiry, option.strike, forward_up)
+                volatility_up = vol_surface.get_vol_for_strike(time_to_expiry, option.strike, forward_up, option.is_call)
             else:
                 volatility_up = volatility
 
@@ -487,7 +487,7 @@ class FXOptionPricer:
 
             # Get volatility
             if vol_surface:
-                volatility = vol_surface.get_vol_for_strike(time_to_expiry, option.strike, forward)
+                volatility = vol_surface.get_vol_for_strike(time_to_expiry, option.strike, forward, option.is_call)
             else:
                 volatility = 10.0  # Default
 

@@ -93,6 +93,10 @@ class VolatilitySmile:
             bc_type='natural'
         )
 
+        logger.debug(f"VolSmile {self.tenor}: Built smile - "
+                    f"10P={self.vol_10p:.2f}%, 25P={self.vol_25p:.2f}%, ATM={self.atm_vol:.2f}%, "
+                    f"25C={self.vol_25c:.2f}%, 10C={self.vol_10c:.2f}%")
+
     def get_vol_for_delta(self, delta: float) -> float:
         """
         Get interpolated volatility for a given delta.
@@ -254,9 +258,10 @@ class VolatilitySurface:
 
             self.smiles[tenor] = smile
             self.tenor_times[tenor] = time_to_expiry
-            logger.debug(f"VolSurface {self.cross}: Added {tenor} smile - ATM={atm:.2f}%, "
-                        f"25RR={rr_25:.2f}, 10RR={rr_10:.2f}, 25BF={bf_25:.2f}, 10BF={bf_10:.2f}, "
-                        f"fwd={forward:.5f}, T={time_to_expiry:.4f}y")
+            logger.info(f"VolSurface {self.cross}: Added {tenor} smile - ATM={atm:.2f}%, "
+                       f"25RR={rr_25:.2f}, 10RR={rr_10:.2f}, 25BF={bf_25:.2f}, 10BF={bf_10:.2f}")
+            logger.info(f"  -> Smile points: 10P={smile.vol_10p:.2f}%, 25P={smile.vol_25p:.2f}%, "
+                       f"ATM={smile.atm_vol:.2f}%, 25C={smile.vol_25c:.2f}%, 10C={smile.vol_10c:.2f}%")
 
         self._build_time_interpolator()
         logger.info(f"VolSurface {self.cross}: Built with tenors {self._sorted_tenors} "
@@ -323,7 +328,7 @@ class VolatilitySurface:
         return self.smiles[self._sorted_tenors[0]].get_vol_for_delta(delta)
 
     def get_vol_for_strike(self, time_to_expiry: float, strike: float,
-                          forward: float) -> float:
+                          forward: float, is_call: bool = True) -> float:
         """
         Get volatility for a specific strike and expiry.
 
@@ -331,6 +336,7 @@ class VolatilitySurface:
             time_to_expiry: Time to expiry in years
             strike: Strike price
             forward: Forward rate for this expiry
+            is_call: True for call option, False for put option
 
         Returns:
             Interpolated volatility in %
@@ -349,17 +355,20 @@ class VolatilitySurface:
 
         log_moneyness = math.log(forward / strike)
         d1 = (log_moneyness + 0.5 * vol_decimal * vol_decimal * time_to_expiry) / (vol_decimal * sqrt_t)
-        delta = norm.cdf(d1)
 
-        # For OTM puts, convert to put delta
-        if strike > forward:
-            delta = delta - 1
+        # Calculate delta based on option type
+        # For calls: delta = N(d1), positive (0 to 1)
+        # For puts: delta = N(d1) - 1, negative (-1 to 0)
+        if is_call:
+            delta = norm.cdf(d1)  # Call delta: positive
+        else:
+            delta = norm.cdf(d1) - 1  # Put delta: negative
 
         # Now get vol for this delta
         final_vol = self.get_vol(time_to_expiry, delta)
 
         logger.debug(f"VolSurface.get_vol_for_strike: T={time_to_expiry:.4f}y, K={strike:.5f}, "
-                    f"F={forward:.5f}, atm_vol={atm_vol:.2f}%, delta={delta:.4f}, final_vol={final_vol:.2f}%")
+                    f"F={forward:.5f}, is_call={is_call}, atm_vol={atm_vol:.2f}%, delta={delta:.4f}, final_vol={final_vol:.2f}%")
 
         return final_vol
 
