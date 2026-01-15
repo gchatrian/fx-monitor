@@ -13,7 +13,7 @@ import logging
 
 from .styles import (
     MAIN_STYLESHEET, COLORS, get_pnl_color, format_number,
-    format_delta, format_pnl
+    format_delta, format_pnl, format_rate, format_vol
 )
 from .detail_window import DetailWindow
 from .add_forward_dialog import AddForwardDialog
@@ -107,8 +107,8 @@ class MainWindow(QMainWindow):
         summary_layout = QHBoxLayout(summary_frame)
 
         # Portfolio summary cards
-        self.total_pnl_label = self._create_summary_card("Total P&L", "0.00")
-        self.total_vega_label = self._create_summary_card("Total Vega (USD)", "0.00")
+        self.total_pnl_label = self._create_summary_card("Total P&L", "0")
+        self.total_vega_label = self._create_summary_card("Total Vega (EUR)", "0")
         self.options_count_label = self._create_summary_card("Options", "0")
         self.forwards_count_label = self._create_summary_card("Forwards", "0")
         self.last_update_label = self._create_summary_card("Last Update", "--:--:--")
@@ -165,10 +165,10 @@ class MainWindow(QMainWindow):
     def _setup_positions_table(self):
         """Configure the positions table."""
         columns = [
-            "Cross", "Expiry",
+            "Cross", "Expiry", "Fwd", "Vol ATMF",
             "Options P&L", "Forward P&L", "Total P&L",
             "Options Delta", "Forward Delta", "Total Delta",
-            "Gamma 1%", "Vega USD", "Vega EUR"
+            "Gamma 1%", "Vega EUR"
         ]
 
         self.positions_table.setColumnCount(len(columns))
@@ -180,7 +180,7 @@ class MainWindow(QMainWindow):
         # Header configuration
         header = self.positions_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        header.setMinimumSectionSize(100)
+        header.setMinimumSectionSize(80)
 
         # Enable sorting
         self.positions_table.setSortingEnabled(True)
@@ -282,6 +282,35 @@ class MainWindow(QMainWindow):
         if value_label:
             value_label.setText(timestamp)
 
+    def _get_forward_rate_for_expiry(self, cross: str, expiry_str: str) -> float:
+        """Get forward rate for a specific expiry date."""
+        try:
+            expiry_date = datetime.strptime(expiry_str, '%Y-%m-%d').date()
+            return self.market_provider.get_forward_rate_for_date(cross, expiry_date)
+        except:
+            # Fallback to spot
+            md = self.market_data.get(cross)
+            return md.spot if md else 0.0
+
+    def _get_atmf_vol_for_expiry(self, cross: str, expiry_str: str) -> float:
+        """Get ATM forward volatility for a specific expiry date."""
+        try:
+            vol_surface = self.vol_surfaces.get(cross)
+            if not vol_surface:
+                return 0.0
+
+            expiry_date = datetime.strptime(expiry_str, '%Y-%m-%d').date()
+            today = date.today()
+            time_to_expiry = (expiry_date - today).days / 365.0
+
+            if time_to_expiry <= 0:
+                return 0.0
+
+            # Get ATM vol (delta = 0.5)
+            return vol_surface.get_vol(time_to_expiry, delta=0.5)
+        except:
+            return 0.0
+
     def _update_positions_table(self):
         """Update the positions table with current data."""
         self.positions_table.setSortingEnabled(False)
@@ -302,14 +331,13 @@ class MainWindow(QMainWindow):
                         'expiry': expiry,
                         'opt_pnl': 0, 'fwd_pnl': 0,
                         'opt_delta': 0, 'fwd_delta': 0,
-                        'gamma': 0, 'vega_usd': 0, 'vega_eur': 0
+                        'gamma': 0, 'vega_eur': 0
                     }
 
                 if opt_pos:
                     all_positions[key]['opt_pnl'] = opt_pos.total_pnl
                     all_positions[key]['opt_delta'] = opt_pos.total_delta_notional
                     all_positions[key]['gamma'] = opt_pos.total_gamma_1pct
-                    all_positions[key]['vega_usd'] = opt_pos.total_vega_usd
                     all_positions[key]['vega_eur'] = opt_pos.total_vega_eur
 
         # Add forward positions (match by expiry/value_date)
@@ -323,7 +351,7 @@ class MainWindow(QMainWindow):
                         'expiry': value_date,
                         'opt_pnl': 0, 'fwd_pnl': 0,
                         'opt_delta': 0, 'fwd_delta': 0,
-                        'gamma': 0, 'vega_usd': 0, 'vega_eur': 0
+                        'gamma': 0, 'vega_eur': 0
                     }
 
                 fwd_pos = self.forward_manager.get_position(cross, value_date)
@@ -339,18 +367,23 @@ class MainWindow(QMainWindow):
             total_pnl = data['opt_pnl'] + data['fwd_pnl']
             total_delta = data['opt_delta'] + data['fwd_delta']
 
+            # Get forward rate and ATMF vol for this expiry
+            fwd_rate = self._get_forward_rate_for_expiry(cross, expiry)
+            atmf_vol = self._get_atmf_vol_for_expiry(cross, expiry)
+
             items = [
                 (cross, None),
                 (expiry, None),
+                (format_rate(fwd_rate, cross), None),
+                (format_vol(atmf_vol), None),
                 (format_pnl(data['opt_pnl']), get_pnl_color(data['opt_pnl'])),
                 (format_pnl(data['fwd_pnl']), get_pnl_color(data['fwd_pnl'])),
                 (format_pnl(total_pnl), get_pnl_color(total_pnl)),
-                (format_number(data['opt_delta'], 0), None),
-                (format_number(data['fwd_delta'], 0), None),
-                (format_number(total_delta, 0), get_pnl_color(total_delta)),
-                (format_number(data['gamma'], 0), None),
-                (format_number(data['vega_usd'], 0), None),
-                (format_number(data['vega_eur'], 0), None),
+                (format_number(data['opt_delta']), None),
+                (format_number(data['fwd_delta']), None),
+                (format_number(total_delta), get_pnl_color(total_delta)),
+                (format_number(data['gamma']), None),
+                (format_number(data['vega_eur']), None),
             ]
 
             for col, (text, color) in enumerate(items):
@@ -374,7 +407,7 @@ class MainWindow(QMainWindow):
         self._update_card_value(self.total_pnl_label, format_pnl(total_pnl),
                                get_pnl_color(total_pnl))
         self._update_card_value(self.total_vega_label,
-                               format_number(portfolio_summary['total_vega_usd'], 0))
+                               format_number(portfolio_summary['total_vega_eur']))
         self._update_card_value(self.options_count_label,
                                str(portfolio_summary['num_options']))
         self._update_card_value(self.forwards_count_label,
@@ -440,7 +473,7 @@ class MainWindow(QMainWindow):
         self._update_positions_table()
         self._update_summary()
 
-        self.statusBar.showMessage(f"Forward added: {forward.direction} {format_number(forward.notional, 0)} {forward.cross}")
+        self.statusBar.showMessage(f"Forward added: {forward.direction} {format_number(forward.notional)} {forward.cross}")
 
     def closeEvent(self, event):
         """Handle window close."""

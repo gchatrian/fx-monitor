@@ -312,12 +312,8 @@ def get_pnl_color(value: float) -> str:
     return COLORS['text']
 
 
-def format_number(value: float, decimals: int = 2, prefix: str = '', suffix: str = '') -> str:
-    """Format number with thousands separator."""
-    if abs(value) >= 1_000_000:
-        return f"{prefix}{value/1_000_000:,.{decimals}f}M{suffix}"
-    elif abs(value) >= 1_000:
-        return f"{prefix}{value/1_000:,.{decimals}f}K{suffix}"
+def format_number(value: float, decimals: int = 0, prefix: str = '', suffix: str = '') -> str:
+    """Format number with thousands separator (x,xxx,xxx format)."""
     return f"{prefix}{value:,.{decimals}f}{suffix}"
 
 
@@ -327,9 +323,17 @@ def format_delta(value: float) -> str:
 
 
 def format_pnl(value: float) -> str:
-    """Format P&L value with sign."""
-    if abs(value) >= 1_000_000:
-        return f"{value/1_000_000:+,.2f}M"
-    elif abs(value) >= 1_000:
-        return f"{value/1_000:+,.2f}K"
-    return f"{value:+,.2f}"
+    """Format P&L value with sign (x,xxx,xxx format)."""
+    return f"{value:+,.0f}"
+
+
+def format_rate(value: float, cross: str = '') -> str:
+    """Format FX rate with appropriate decimals."""
+    if 'JPY' in cross:
+        return f"{value:,.2f}"
+    return f"{value:.5f}"
+
+
+def format_vol(value: float) -> str:
+    """Format volatility in percentage."""
+    return f"{value:.2f}%"
