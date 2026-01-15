@@ -483,3 +483,108 @@
 2026-01-15 09:25:21,142 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16330
 2026-01-15 09:25:34,446 - src.core.bloomberg_client - INFO - Bloomberg: Disconnecting from API...
 2026-01-15 09:25:34,449 - src.core.bloomberg_client - INFO - Bloomberg: Disconnected successfully
+2026-01-15 09:40:08,108 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-15 09:40:08,234 - src.core.bloomberg_client - INFO - Bloomberg: Attempting connection to localhost:8194
+2026-01-15 09:40:08,479 - src.core.bloomberg_client - INFO - Bloomberg: Successfully connected to Bloomberg API
+2026-01-15 09:40:08,479 - src.core.market_data_provider - INFO - Bloomberg API connected successfully
+2026-01-15 09:40:09,006 - __main__ - INFO - Application started successfully
+2026-01-15 09:40:09,014 - src.core.portfolio_manager - INFO - Loaded 2 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-15 09:40:09,017 - src.core.forward_manager - INFO - Loaded 1 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-15 09:40:09,018 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDJPY (ticker: USDJPY Curncy)
+2026-01-15 09:40:09,286 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY spot rate = 158.62000
+2026-01-15 09:40:09,287 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDJPY (14 tenors)
+2026-01-15 09:40:10,275 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDJPY
+2026-01-15 09:40:10,276 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDJPY (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:11,024 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDJPY (0 errors)
+2026-01-15 09:40:11,025 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY ATM vols: 1M=8.88%, 1W=7.58%, 1Y=9.35%, 2M=8.88%, 2W=8.50%, 3M=9.01%, 6M=9.21%, 9M=9.34%
+2026-01-15 09:40:11,033 - src.core.volatility_surface - INFO - VolSurface USDJPY: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:11,034 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDCAD (ticker: USDCAD Curncy)
+2026-01-15 09:40:11,302 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD spot rate = 1.39070
+2026-01-15 09:40:11,302 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDCAD (14 tenors)
+2026-01-15 09:40:12,486 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for USDCAD
+2026-01-15 09:40:12,487 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDCAD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:13,254 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDCAD (0 errors)
+2026-01-15 09:40:13,254 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD ATM vols: 1M=4.29%, 1W=3.76%, 1Y=5.30%, 2M=4.39%, 2W=4.14%, 3M=4.51%, 6M=4.85%, 9M=5.10%
+2026-01-15 09:40:13,257 - src.core.volatility_surface - INFO - VolSurface USDCAD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:13,258 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:40:13,542 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16350
+2026-01-15 09:40:13,543 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:40:14,383 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 09:40:14,384 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:15,137 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:40:15,138 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD ATM vols: 1M=5.18%, 1W=4.47%, 1Y=6.37%, 2M=5.34%, 2W=4.91%, 3M=5.53%, 6M=5.86%, 9M=6.17%
+2026-01-15 09:40:15,145 - src.core.volatility_surface - INFO - VolSurface EURUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:15,145 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDNZD (ticker: AUDNZD Curncy)
+2026-01-15 09:40:15,410 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD spot rate = 1.16450
+2026-01-15 09:40:15,410 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDNZD (14 tenors)
+2026-01-15 09:40:16,225 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDNZD
+2026-01-15 09:40:16,226 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDNZD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:17,129 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDNZD (0 errors)
+2026-01-15 09:40:17,130 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD ATM vols: 1M=4.82%, 1W=4.28%, 1Y=4.95%, 2M=4.73%, 2W=4.61%, 3M=4.80%, 6M=4.89%, 9M=4.92%
+2026-01-15 09:40:17,133 - src.core.volatility_surface - INFO - VolSurface AUDNZD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:17,133 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURGBP (ticker: EURGBP Curncy)
+2026-01-15 09:40:17,429 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP spot rate = 0.86555
+2026-01-15 09:40:17,430 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURGBP (14 tenors)
+2026-01-15 09:40:18,389 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURGBP
+2026-01-15 09:40:18,390 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURGBP (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:19,215 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURGBP (0 errors)
+2026-01-15 09:40:19,216 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP ATM vols: 1M=3.69%, 1W=3.40%, 1Y=5.05%, 2M=3.88%, 2W=3.44%, 3M=4.11%, 6M=4.60%, 9M=4.90%
+2026-01-15 09:40:19,222 - src.core.volatility_surface - INFO - VolSurface EURGBP: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:19,223 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for GBPUSD (ticker: GBPUSD Curncy)
+2026-01-15 09:40:19,553 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD spot rate = 1.34420
+2026-01-15 09:40:19,554 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for GBPUSD (14 tenors)
+2026-01-15 09:40:20,399 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for GBPUSD
+2026-01-15 09:40:20,400 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for GBPUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:21,423 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for GBPUSD (0 errors)
+2026-01-15 09:40:21,424 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD ATM vols: 1M=5.90%, 1W=5.21%, 1Y=7.51%, 2M=6.10%, 2W=5.63%, 3M=6.34%, 6M=6.91%, 9M=7.29%
+2026-01-15 09:40:21,430 - src.core.volatility_surface - INFO - VolSurface GBPUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:21,431 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDUSD (ticker: AUDUSD Curncy)
+2026-01-15 09:40:21,692 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD spot rate = 0.66890
+2026-01-15 09:40:21,692 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDUSD (14 tenors)
+2026-01-15 09:40:22,378 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for AUDUSD
+2026-01-15 09:40:22,379 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:23,166 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDUSD (0 errors)
+2026-01-15 09:40:23,167 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD ATM vols: 1M=7.48%, 1W=6.69%, 1Y=9.17%, 2M=7.78%, 2W=7.26%, 3M=8.06%, 6M=8.56%, 9M=8.95%
+2026-01-15 09:40:23,173 - src.core.volatility_surface - INFO - VolSurface AUDUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:23,174 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 09:40:23,590 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93233
+2026-01-15 09:40:23,591 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURCHF (14 tenors)
+2026-01-15 09:40:24,385 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURCHF
+2026-01-15 09:40:24,385 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURCHF (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:40:25,168 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURCHF (0 errors)
+2026-01-15 09:40:25,169 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF ATM vols: 1M=3.70%, 1W=3.61%, 1Y=5.01%, 2M=3.84%, 2W=3.54%, 3M=4.07%, 6M=4.51%, 9M=4.84%
+2026-01-15 09:40:25,174 - src.core.volatility_surface - INFO - VolSurface EURCHF: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:40:25,964 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-10: S=1.16350, F=1.16808, vol=4.82%, T=0.2329y
+2026-01-15 09:40:25,965 - src.core.pricing_engine - INFO -   Trade price: 0.010965 (1.0965%), Direction: Short, Notional: 7,000,000
+2026-01-15 09:40:25,967 - src.core.pricing_engine - INFO -   QuantLib price: 0.006997 (0.6997%), delta=0.4193, vega=0.002197
+2026-01-15 09:40:25,970 - src.core.pricing_engine - INFO -   Forward delta: 0.4184, gamma_1pct: 0.159881, vega_usd: -17,896, vega_eur: -15,381
+2026-01-15 09:40:25,970 - src.core.pricing_engine - INFO -   Final values - current_price: 0.006997, delta_notional: -2,929,058, gamma_1pct: -1,119,167, vega_eur: -15,381, pnl: 27,779 EUR
+2026-01-15 09:40:25,972 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-10: S=1.16350, F=1.16808, vol=4.82%, T=0.2329y
+2026-01-15 09:40:25,972 - src.core.pricing_engine - INFO -   Trade price: 0.010821 (1.0821%), Direction: Short, Notional: 7,000,000
+2026-01-15 09:40:25,973 - src.core.pricing_engine - INFO -   QuantLib price: 0.012077 (1.2077%), delta=-0.5827, vega=0.002197
+2026-01-15 09:40:25,977 - src.core.pricing_engine - INFO -   Forward delta: -0.5816, gamma_1pct: 0.159881, vega_usd: -17,896, vega_eur: -15,381
+2026-01-15 09:40:25,977 - src.core.pricing_engine - INFO -   Final values - current_price: 0.012077, delta_notional: 4,070,942, gamma_1pct: -1,119,167, vega_eur: -15,381, pnl: -8,792 EUR
+2026-01-15 09:40:25,978 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:40:26,309 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16350
+2026-01-15 09:41:08,573 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:41:08,854 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16350
+2026-01-15 09:41:08,855 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 09:41:09,952 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 14/14 forward points for EURUSD
+2026-01-15 09:41:09,953 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 09:41:10,922 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 09:41:10,923 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD ATM vols: 1M=5.18%, 1W=4.47%, 1Y=6.37%, 2M=5.34%, 2W=4.91%, 3M=5.53%, 6M=5.86%, 9M=6.17%
+2026-01-15 09:41:10,929 - src.core.volatility_surface - INFO - VolSurface EURUSD: Built with tenors ['1W', '2W', '1M', '2M', '3M', '6M', '9M', '1Y'] times ['0.0192y', '0.0384y', '0.0833y', '0.1667y', '0.2500y', '0.5000y', '0.7500y', '1.0000y']
+2026-01-15 09:41:10,931 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-10: S=1.16350, F=1.16808, vol=4.82%, T=0.2329y
+2026-01-15 09:41:10,932 - src.core.pricing_engine - INFO -   Trade price: 0.010965 (1.0965%), Direction: Short, Notional: 7,000,000
+2026-01-15 09:41:10,934 - src.core.pricing_engine - INFO -   QuantLib price: 0.006997 (0.6997%), delta=0.4193, vega=0.002197
+2026-01-15 09:41:10,936 - src.core.pricing_engine - INFO -   Forward delta: 0.4184, gamma_1pct: 0.159881, vega_usd: -17,896, vega_eur: -15,381
+2026-01-15 09:41:10,937 - src.core.pricing_engine - INFO -   Final values - current_price: 0.006997, delta_notional: -2,929,058, gamma_1pct: -1,119,167, vega_eur: -15,381, pnl: 27,779 EUR
+2026-01-15 09:41:10,938 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-10: S=1.16350, F=1.16808, vol=4.82%, T=0.2329y
+2026-01-15 09:41:10,939 - src.core.pricing_engine - INFO -   Trade price: 0.010821 (1.0821%), Direction: Short, Notional: 7,000,000
+2026-01-15 09:41:10,940 - src.core.pricing_engine - INFO -   QuantLib price: 0.012077 (1.2077%), delta=-0.5827, vega=0.002197
+2026-01-15 09:41:10,942 - src.core.pricing_engine - INFO -   Forward delta: -0.5816, gamma_1pct: 0.159881, vega_usd: -17,896, vega_eur: -15,381
+2026-01-15 09:41:10,943 - src.core.pricing_engine - INFO -   Final values - current_price: 0.012077, delta_notional: 4,070,942, gamma_1pct: -1,119,167, vega_eur: -15,381, pnl: -8,792 EUR
+2026-01-15 09:41:10,944 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 09:41:11,217 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16350
+2026-01-15 09:42:02,825 - src.core.bloomberg_client - INFO - Bloomberg: Disconnecting from API...
+2026-01-15 09:42:02,828 - src.core.bloomberg_client - INFO - Bloomberg: Disconnected successfully
