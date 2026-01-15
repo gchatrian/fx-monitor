@@ -47,11 +47,11 @@ class MainWindow(QMainWindow):
         self._setup_ui()
         self._setup_connections()
 
-        # Auto-refresh timer
+        # Refresh timer (not auto-started - user must click Refresh button)
         self.refresh_timer = QTimer()
         self.refresh_timer.timeout.connect(self.refresh_data)
-        # Start timer with configured interval (convert to milliseconds)
-        self.refresh_timer.start(self.config.refresh_interval * 1000)
+        # Timer is configured but NOT started automatically
+        # User must manually trigger refresh via the Refresh button
 
         # Initial data load
         QTimer.singleShot(100, self.initial_load)
