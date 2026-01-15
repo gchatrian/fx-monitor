@@ -17,7 +17,7 @@ from .styles import (
 from .add_forward_dialog import AddForwardDialog
 from ..core.portfolio_manager import AggregatedPosition
 from ..core.forward_manager import AggregatedForwardPosition, FXForward
-from ..core.bloomberg_client import FXMarketData
+from ..core.market_data_provider import FXMarketData
 
 
 class DetailWindow(QWidget):
@@ -44,7 +44,8 @@ class DetailWindow(QWidget):
     def _setup_ui(self):
         """Set up the user interface."""
         self.setWindowTitle(f"Position Detail - {self.cross} {self.expiry}")
-        self.setMinimumSize(1000, 700)
+        self.setMinimumSize(900, 500)
+        self.resize(1000, 550)
         self.setStyleSheet(MAIN_STYLESHEET)
         self.setWindowFlags(Qt.WindowType.Window)
 
@@ -78,10 +79,6 @@ class DetailWindow(QWidget):
         if self.market_data:
             market_frame = self._create_market_section()
             layout.addWidget(market_frame)
-
-        # Summary section
-        summary_frame = self._create_summary_section()
-        layout.addWidget(summary_frame)
 
         # Tab widget for details
         tab_widget = QTabWidget()
@@ -280,7 +277,7 @@ class DetailWindow(QWidget):
         table = QTableWidget()
         columns = [
             "Trade Date", "Type", "Direction", "Strike", "Notional",
-            "Price", "Current", "Delta", "Gamma 1%", "Vega USD", "P&L"
+            "Price %", "Current %", "Delta", "Gamma 1%", "Vega EUR", "P&L"
         ]
 
         table.setColumnCount(len(columns))
@@ -292,17 +289,21 @@ class DetailWindow(QWidget):
             row = table.rowCount()
             table.insertRow(row)
 
+            # Format prices as percentage (e.g., 0.0125 -> 1.25%)
+            trade_price_pct = f"{option.trade_price * 100:.2f}%"
+            current_price_pct = f"{option.current_price * 100:.2f}%"
+
             items = [
                 option.trade_date.strftime('%Y-%m-%d'),
                 option.option_type,
                 option.direction,
                 f"{option.strike:.5f}",
                 format_number(option.notional, 0),
-                f"{option.trade_price:.4f}",
-                f"{option.current_price:.4f}",
+                trade_price_pct,
+                current_price_pct,
                 format_delta(option.delta),
                 format_number(option.gamma_1pct, 0),
-                format_number(option.vega_usd, 0),
+                format_number(option.vega_eur, 0),
                 format_pnl(option.pnl)
             ]
 

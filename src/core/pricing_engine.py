@@ -15,24 +15,29 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class FXOption:
-    """Represents an FX option position."""
+    """Represents an FX option position.
+
+    Price convention: All prices are expressed as % of notional in base currency.
+    For example, a EURUSD call with price 0.0125 means 1.25% of EUR notional.
+    For USDJPY, price 0.85 means 0.85% of USD notional.
+    """
     trade_date: date
     cross: str
     expiry: date
     direction: str  # 'Long' or 'Short'
     option_type: str  # 'Call' or 'Put'
     strike: float
-    notional: float  # In base currency
-    trade_price: float  # Premium paid/received in pips or %
+    notional: float  # In base currency (e.g., EUR for EURUSD, USD for USDJPY)
+    trade_price: float  # Premium as % of notional (e.g., 0.0125 = 1.25%)
 
     # Calculated fields
-    current_price: float = 0.0
-    delta: float = 0.0
-    delta_notional: float = 0.0
-    vega_usd: float = 0.0
-    vega_eur: float = 0.0
-    gamma_1pct: float = 0.0
-    pnl: float = 0.0
+    current_price: float = 0.0  # Current premium as % of notional
+    delta: float = 0.0  # Forward delta (0-1 for calls, -1-0 for puts)
+    delta_notional: float = 0.0  # Delta * signed notional
+    vega_usd: float = 0.0  # Vega in USD
+    vega_eur: float = 0.0  # Vega in EUR
+    gamma_1pct: float = 0.0  # Delta change for 1% spot move
+    pnl: float = 0.0  # P&L in EUR
 
     def __post_init__(self):
         """Normalize input values."""
@@ -128,6 +133,8 @@ class FXOptionPricer:
         """
         Price an FX option using QuantLib.
 
+        The returned price is expressed as % of notional (e.g., 0.0125 = 1.25%).
+
         Args:
             option: FXOption object
             spot: Current spot rate
@@ -137,7 +144,7 @@ class FXOptionPricer:
             foreign_rate: Foreign risk-free rate (annual)
 
         Returns:
-            OptionGreeks object with price and Greeks
+            OptionGreeks object with price (as % of notional) and Greeks
         """
         greeks = OptionGreeks()
 
@@ -148,12 +155,16 @@ class FXOptionPricer:
 
             # Check if expired
             if expiry_date <= valuation_date:
-                # Option expired - calculate intrinsic value only
+                # Option expired - calculate intrinsic value as % of notional
                 if option.is_call:
                     intrinsic = max(0, spot - option.strike)
                 else:
                     intrinsic = max(0, option.strike - spot)
-                greeks.price = intrinsic
+                # Convert to % of notional: intrinsic / spot for non-JPY
+                if 'JPY' in option.cross:
+                    greeks.price = intrinsic / spot  # % of notional
+                else:
+                    greeks.price = intrinsic / spot if spot > 0 else 0
                 return greeks
 
             # If rates not provided, derive from forward
@@ -192,7 +203,18 @@ class FXOptionPricer:
             european_option.setPricingEngine(engine)
 
             # Calculate price and Greeks
-            greeks.price = european_option.NPV()
+            # QuantLib returns price in quote currency per unit of base
+            # We need to convert to % of notional
+            raw_price = european_option.NPV()
+
+            # Convert price to % of notional
+            # For EURUSD: price in USD per EUR, divide by spot to get %
+            # For USDJPY: price in JPY per USD, divide by spot to get %
+            if spot > 0:
+                greeks.price = raw_price / spot
+            else:
+                greeks.price = 0.0
+
             greeks.delta = european_option.delta()
             greeks.gamma = european_option.gamma()
             greeks.vega = european_option.vega() / 100  # Per 1% vol move
@@ -285,9 +307,20 @@ class FXOptionPricer:
             return 0.0
 
     def calculate_vega(self, option: FXOption, spot: float, forward: float,
-                      volatility: float, notional: float) -> Tuple[float, float]:
+                      volatility: float, notional: float,
+                      eurusd: float = None) -> Tuple[float, float]:
         """
         Calculate vega in USD and EUR terms.
+
+        Vega is the change in option value (in base currency) for 1% vol change.
+
+        Args:
+            option: FXOption object
+            spot: Spot rate
+            forward: Forward rate
+            volatility: Implied volatility in %
+            notional: Option notional
+            eurusd: EURUSD rate for conversion to EUR
 
         Returns:
             Tuple of (vega_usd, vega_eur)
@@ -295,23 +328,34 @@ class FXOptionPricer:
         try:
             greeks = self.price_option(option, spot, forward, volatility)
 
-            # Vega is price sensitivity to 1% vol change
-            # greeks.vega is per notional unit
-            vega_base = greeks.vega * abs(notional)
+            # Vega from greeks is in % terms (per notional unit)
+            # Multiply by notional to get vega in base currency
+            vega_base = greeks.vega * abs(notional) * spot  # Convert back to currency
 
             # Convert to USD and EUR based on cross
             cross = option.cross.upper()
 
+            if eurusd is None or eurusd <= 0:
+                eurusd = 1.08  # Default fallback
+
             if cross.startswith('EUR'):
                 # Base currency is EUR
                 vega_eur = vega_base
-                vega_usd = vega_base * spot if 'USD' in cross else vega_base
+                if 'USD' in cross:
+                    vega_usd = vega_base * spot  # EUR to USD
+                else:
+                    vega_usd = vega_base * eurusd  # Approximate
+            elif cross.startswith('USD'):
+                # Base currency is USD (e.g., USDJPY, USDCAD)
+                vega_usd = vega_base
+                vega_eur = vega_base / eurusd
             elif cross.endswith('USD'):
-                # Quote currency is USD
-                vega_usd = vega_base * spot
-                vega_eur = vega_usd / spot if spot > 0 else 0
+                # Quote currency is USD (e.g., AUDUSD, GBPUSD)
+                # Vega is in base currency (AUD, GBP)
+                vega_usd = vega_base * spot  # Convert base to USD
+                vega_eur = vega_usd / eurusd
             else:
-                # Other cross - use notional as base
+                # Other crosses (e.g., EURGBP, AUDNZD)
                 vega_usd = vega_base
                 vega_eur = vega_base
 
@@ -324,31 +368,58 @@ class FXOptionPricer:
             logger.error(f"Error calculating vega: {e}")
             return 0.0, 0.0
 
-    def calculate_pnl(self, option: FXOption, current_price: float) -> float:
+    def calculate_pnl(self, option: FXOption, current_price: float,
+                      spot: float = None, eurusd: float = None) -> float:
         """
-        Calculate P&L for an option position.
+        Calculate P&L for an option position in EUR.
+
+        Prices are expressed as % of notional in base currency.
+        P&L is converted to EUR for aggregation.
 
         Args:
-            option: FXOption object with trade_price
-            current_price: Current option price
+            option: FXOption object with trade_price (as % of notional)
+            current_price: Current option price (as % of notional)
+            spot: Current spot rate for the cross
+            eurusd: EURUSD rate for conversion to EUR
 
         Returns:
-            P&L in quote currency terms
+            P&L in EUR
         """
         try:
-            # Price difference
+            # Price difference (both are % of notional)
             price_diff = current_price - option.trade_price
 
             # Apply direction
             sign = 1 if option.is_long else -1
 
-            # P&L = notional * price_diff * sign
-            # Assuming prices are in pips
-            pip_factor = 10000 if 'JPY' not in option.cross else 100
+            # P&L in base currency = notional * price_diff * sign
+            pnl_base = option.notional * price_diff * sign
 
-            pnl = option.notional * price_diff * sign / pip_factor
+            # Convert to EUR based on cross
+            cross = option.cross.upper()
 
-            return pnl
+            if cross.startswith('EUR'):
+                # Base currency is EUR, P&L already in EUR
+                pnl_eur = pnl_base
+            elif cross.startswith('USD'):
+                # Base currency is USD, convert to EUR
+                if eurusd and eurusd > 0:
+                    pnl_eur = pnl_base / eurusd
+                else:
+                    pnl_eur = pnl_base  # Fallback
+            elif cross.endswith('USD'):
+                # Quote currency is USD (e.g., AUDUSD, GBPUSD)
+                # Base is AUD/GBP, need to convert via USD then EUR
+                if spot and spot > 0 and eurusd and eurusd > 0:
+                    pnl_usd = pnl_base * spot
+                    pnl_eur = pnl_usd / eurusd
+                else:
+                    pnl_eur = pnl_base
+            else:
+                # Other crosses - approximate
+                pnl_eur = pnl_base
+
+            return pnl_eur
 
         except Exception as e:
             logger.error(f"Error calculating P&L: {e}")
@@ -367,6 +438,11 @@ class FXOptionPricer:
         Returns:
             List of FXOption objects with calculated Greeks
         """
+        # Get EURUSD rate for currency conversion
+        eurusd = None
+        if 'EURUSD' in market_data:
+            eurusd = market_data['EURUSD'].spot
+
         for option in options:
             cross = option.cross.upper()
 
@@ -407,7 +483,9 @@ class FXOptionPricer:
             gamma_1pct = self.calculate_gamma_1pct(option, md.spot, forward, volatility, vol_surface)
 
             # Calculate vega
-            vega_usd, vega_eur = self.calculate_vega(option, md.spot, forward, volatility, option.notional)
+            vega_usd, vega_eur = self.calculate_vega(
+                option, md.spot, forward, volatility, option.notional, eurusd
+            )
 
             # Update option with calculated values
             option.current_price = greeks.price
@@ -418,6 +496,6 @@ class FXOptionPricer:
             option.vega_eur = vega_eur
 
             # Calculate P&L
-            option.pnl = self.calculate_pnl(option, greeks.price)
+            option.pnl = self.calculate_pnl(option, greeks.price, md.spot, eurusd)
 
         return options
