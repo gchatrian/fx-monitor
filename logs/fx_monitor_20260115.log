@@ -1,0 +1,213 @@
+2026-01-15 08:57:30,168 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-15 08:57:30,279 - src.core.bloomberg_client - INFO - Bloomberg: Attempting connection to localhost:8194
+2026-01-15 08:57:30,546 - src.core.bloomberg_client - INFO - Bloomberg: Successfully connected to Bloomberg API
+2026-01-15 08:57:30,547 - src.core.market_data_provider - INFO - Bloomberg API connected successfully
+2026-01-15 08:57:32,139 - __main__ - INFO - Application started successfully
+2026-01-15 08:57:32,157 - src.core.portfolio_manager - INFO - Loaded 2 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-15 08:57:32,172 - src.core.forward_manager - INFO - Loaded 1 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-15 08:57:32,173 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDNZD (ticker: AUDNZD Curncy)
+2026-01-15 08:57:32,474 - src.core.bloomberg_client - INFO - Bloomberg: AUDNZD spot rate = 1.16410
+2026-01-15 08:57:32,474 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDNZD (14 tenors)
+2026-01-15 08:57:33,137 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for AUDNZD1Y Curncy: securityError = {
+    source = "19433:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19433]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:33,138 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for AUDNZDTrue Curncy: securityError = {
+    source = "23106:rsfrdsvc1"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23106]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:33,139 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for AUDNZD
+2026-01-15 08:57:33,139 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDNZD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:33,906 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDNZD (0 errors)
+2026-01-15 08:57:33,915 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for GBPUSD (ticker: GBPUSD Curncy)
+2026-01-15 08:57:34,205 - src.core.bloomberg_client - INFO - Bloomberg: GBPUSD spot rate = 1.34330
+2026-01-15 08:57:34,205 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for GBPUSD (14 tenors)
+2026-01-15 08:57:34,811 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for GBPUSD1Y Curncy: securityError = {
+    source = "19488:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19488]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:34,811 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for GBPUSDTrue Curncy: securityError = {
+    source = "23102:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23102]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:34,813 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for GBPUSD
+2026-01-15 08:57:34,813 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for GBPUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:35,562 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for GBPUSD (0 errors)
+2026-01-15 08:57:35,565 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDJPY (ticker: USDJPY Curncy)
+2026-01-15 08:57:35,868 - src.core.bloomberg_client - INFO - Bloomberg: USDJPY spot rate = 158.53000
+2026-01-15 08:57:35,868 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDJPY (14 tenors)
+2026-01-15 08:57:36,466 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for USDJPY1Y Curncy: securityError = {
+    source = "24057:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:24057]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:36,467 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for USDJPYTrue Curncy: securityError = {
+    source = "19392:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19392]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:36,474 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for USDJPY
+2026-01-15 08:57:36,478 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDJPY (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:37,263 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDJPY (0 errors)
+2026-01-15 08:57:37,265 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:57:37,509 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
+2026-01-15 08:57:37,510 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 08:57:38,401 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSD1Y Curncy: securityError = {
+    source = "21929:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:21929]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:38,402 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSDTrue Curncy: securityError = {
+    source = "23008:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23008]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:38,407 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURUSD
+2026-01-15 08:57:38,408 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:39,181 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 08:57:39,185 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for AUDUSD (ticker: AUDUSD Curncy)
+2026-01-15 08:57:39,438 - src.core.bloomberg_client - INFO - Bloomberg: AUDUSD spot rate = 0.66810
+2026-01-15 08:57:39,438 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for AUDUSD (14 tenors)
+2026-01-15 08:57:40,227 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for AUDUSD1Y Curncy: securityError = {
+    source = "23007:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23007]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:40,228 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for AUDUSDTrue Curncy: securityError = {
+    source = "19488:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19488]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:40,230 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for AUDUSD
+2026-01-15 08:57:40,232 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for AUDUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:40,978 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for AUDUSD (0 errors)
+2026-01-15 08:57:40,985 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURCHF (ticker: EURCHF Curncy)
+2026-01-15 08:57:41,231 - src.core.bloomberg_client - INFO - Bloomberg: EURCHF spot rate = 0.93174
+2026-01-15 08:57:41,232 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURCHF (14 tenors)
+2026-01-15 08:57:41,840 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURCHFTrue Curncy: securityError = {
+    source = "19432:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19432]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:41,842 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURCHF1Y Curncy: securityError = {
+    source = "21937:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:21937]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:41,843 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURCHF
+2026-01-15 08:57:41,845 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURCHF (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:42,474 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURCHF (0 errors)
+2026-01-15 08:57:42,483 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURGBP (ticker: EURGBP Curncy)
+2026-01-15 08:57:42,802 - src.core.bloomberg_client - INFO - Bloomberg: EURGBP spot rate = 0.86571
+2026-01-15 08:57:42,803 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURGBP (14 tenors)
+2026-01-15 08:57:43,653 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURGBP1Y Curncy: securityError = {
+    source = "23010:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23010]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:43,654 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURGBPTrue Curncy: securityError = {
+    source = "19533:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19533]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:43,656 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURGBP
+2026-01-15 08:57:43,656 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURGBP (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:44,405 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURGBP (0 errors)
+2026-01-15 08:57:44,409 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for USDCAD (ticker: USDCAD Curncy)
+2026-01-15 08:57:44,698 - src.core.bloomberg_client - INFO - Bloomberg: USDCAD spot rate = 1.39010
+2026-01-15 08:57:44,698 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for USDCAD (14 tenors)
+2026-01-15 08:57:45,544 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for USDCAD1Y Curncy: securityError = {
+    source = "23926:rsfrdsvc1"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:23926]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:45,545 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for USDCADTrue Curncy: securityError = {
+    source = "19390:rsfrdsvc2"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:19390]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:57:45,547 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for USDCAD
+2026-01-15 08:57:45,548 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for USDCAD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:57:46,235 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for USDCAD (0 errors)
+2026-01-15 08:57:48,970 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 08:57:48,973 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 08:57:48,976 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:57:49,266 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
+2026-01-15 08:58:31,759 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:58:32,075 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290
+2026-01-15 08:58:32,076 - src.core.bloomberg_client - INFO - Bloomberg: Fetching forward points for EURUSD (14 tenors)
+2026-01-15 08:58:32,671 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSD1Y Curncy: securityError = {
+    source = "21935:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:21935]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:58:32,672 - src.core.bloomberg_client - WARNING - Bloomberg: Security error for EURUSDTrue Curncy: securityError = {
+    source = "21932:rsfrdsvc3"
+    code = 43
+    category = "BAD_SEC"
+    message = "Unknown/Invalid Security  [nid:21932]"
+    subcategory = "INVALID_SECURITY"
+}
+
+2026-01-15 08:58:32,672 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 12/14 forward points for EURUSD
+2026-01-15 08:58:32,673 - src.core.bloomberg_client - INFO - Bloomberg: Fetching volatility surface for EURUSD (8 tenors x 5 pillars = 40 points)
+2026-01-15 08:58:33,394 - src.core.bloomberg_client - INFO - Bloomberg: Retrieved 40/40 vol surface points for EURUSD (0 errors)
+2026-01-15 08:58:33,403 - src.core.pricing_engine - INFO - Pricing EURUSD Call K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 08:58:33,405 - src.core.pricing_engine - INFO - Pricing EURUSD Put K=1.17400 exp=2026-04-14: S=1.16290, F=1.16770, vol=4.83%, T=0.2438y
+2026-01-15 08:58:33,414 - src.core.bloomberg_client - INFO - Bloomberg: Fetching spot rate for EURUSD (ticker: EURUSD Curncy)
+2026-01-15 08:58:33,655 - src.core.bloomberg_client - INFO - Bloomberg: EURUSD spot rate = 1.16290

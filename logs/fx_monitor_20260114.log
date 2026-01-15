@@ -1,0 +1,7 @@
+2026-01-14 16:35:46,025 - __main__ - INFO - Starting FX Options Portfolio Monitor
+2026-01-14 16:35:47,324 - __main__ - INFO - Application started successfully
+2026-01-14 16:35:47,334 - src.core.portfolio_manager - INFO - Loaded 15 options from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\options_portfolio.csv
+2026-01-14 16:35:47,337 - src.core.forward_manager - INFO - Loaded 10 forwards from C:\Users\u338841\Documents\Macro Trading\2026\Python projects\fx-monitor\data\forwards_blotter.csv
+2026-01-14 16:35:47,587 - src.core.bloomberg_client - INFO - Connected to Bloomberg API
+2026-01-14 16:35:47,936 - src.core.bloomberg_client - ERROR - Error parsing spot rate for USDCAD: Name 'securityData' not a sub-element of element 'SessionConnectionUp'. (0x0006000d)
+2026-01-14 16:37:14,355 - src.core.bloomberg_client - INFO - Disconnected from Bloomberg API

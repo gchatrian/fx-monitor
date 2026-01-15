@@ -69,8 +69,8 @@ venv.bak/
 Thumbs.db
 
 # Logs
-logs/
-*.log
+#logs/
+#*.log
 
 # Local configuration (keep config.yaml template)
 config.local.yaml
